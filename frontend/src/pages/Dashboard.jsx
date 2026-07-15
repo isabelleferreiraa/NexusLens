@@ -2,6 +2,12 @@ import { useEffect, useState } from "react";
 import api from "../services/api";
 import "../styles/dashboard.css";
 
+import Header from "../components/Header/Header";
+import AIInsights from "../components/AIInsights/AIInsights";
+import StatCard from "../components/StatCard/StatCard";
+import GraphView from "../components/GraphView/GraphView";
+import MetricsPanel from "../components/MetricsPanel/MetricsPanel";
+
 function Dashboard() {
 
     const [dados, setDados] = useState(null);
@@ -10,18 +16,12 @@ function Dashboard() {
     useEffect(() => {
 
         async function carregarDados() {
-
             try {
-
                 const resposta = await api.get("/grafo");
                 setDados(resposta.data);
-
             } catch (erro) {
-
                 console.error("Erro ao buscar dados:", erro);
-
             }
-
         }
 
         carregarDados();
@@ -29,99 +29,69 @@ function Dashboard() {
     }, []);
 
     async function gerarRelatorioIA() {
-
         setCarregandoIA(true);
 
         try {
-
             const resposta = await api.get("/grafo/relatorio");
-
             setDados((anterior) => ({
                 ...anterior,
                 relatorio: resposta.data.relatorio,
             }));
-
         } catch (erro) {
-
             console.error(erro);
-
             setDados((anterior) => ({
                 ...anterior,
-                relatorio:
-                    "Não foi possível gerar o relatório da IA no momento.",
+                relatorio: "Não foi possível gerar o relatório da IA no momento.",
             }));
-
         } finally {
-
             setCarregandoIA(false);
-
         }
-
     }
 
     return (
-        <div className="dashboard">
+        <div className="nexuslens-app">
+            
+            <Header />
 
-            <header className="header">
-                <h1>NexusLens</h1>
-                <p>Plataforma Inteligente de Análise Financeira</p>
-            </header>
+            <main className="nexuslens-main">
+                
+                {/* 1. Área de Inteligência Artificial (Destaque Máximo) */}
+                <AIInsights 
+                    relatorio={dados?.relatorio} 
+                    onGerar={gerarRelatorioIA} 
+                    carregando={carregandoIA} 
+                />
 
-            <main>
-
-                <section className="cards">
-
-                    <div className="card">
-                        <h2>Score de Risco</h2>
-                        <h3>{dados?.score_risco ?? "--"}</h3>
-                    </div>
-
-                    <div className="card">
-                        <h2>Classificação</h2>
-                        <h3>{dados?.classificacao ?? "--"}</h3>
-                    </div>
-
+                {/* 2. Cards de Resumo */}
+                <section className="stat-cards-row">
+                    <StatCard 
+                        icon="⚠️"
+                        label="Score de Risco" 
+                        value={dados?.score_risco} 
+                        color="red"
+                    />
+                    <StatCard 
+                        icon="🏷️"
+                        label="Classificação" 
+                        value={dados?.classificacao} 
+                        color="yellow"
+                    />
+                    <StatCard 
+                        icon="👥"
+                        label="Conexões" 
+                        value={dados?.metricas?.quantidade_conexoes} 
+                        color="blue"
+                    />
                 </section>
 
-                <section className="card">
-
-                    <h2>Recomendação</h2>
-
-                    <p>
-                        {dados?.recomendacao ?? "Carregando..."}
-                    </p>
-
+                {/* 3. Grafo e 4. Métricas */}
+                {/* Podemos colocar o grafo em cima e métricas embaixo ou vice-versa, conforme o plano. */}
+                <section className="graph-section">
+                    <GraphView nos={dados?.nos} arestas={dados?.arestas} />
                 </section>
 
-                <section className="card">
-
-                    <h2>Métricas</h2>
-
-                    <p><strong>Influência:</strong> {dados?.metricas?.nivel_influencia ?? "--"}</p>
-
-                    <p><strong>Conexões:</strong> {dados?.metricas?.quantidade_conexoes ?? "--"}</p>
-
-                    <p><strong>Papel:</strong> {dados?.metricas?.papel_na_rede ?? "--"}</p>
-
-                </section>
-
-                <section className="card">
-
-                    <h2>Relatório da IA</h2>
-
-                    <p>
-                        {dados?.relatorio ?? "Clique no botão abaixo para gerar o relatório."}
-                    </p>
-
-                    <button
-                        onClick={gerarRelatorioIA}
-                        disabled={carregandoIA}
-                    >
-                        {carregandoIA
-                            ? "Gerando..."
-                            : "🧠 Gerar Relatório"}
-                    </button>
-
+                <section className="metrics-section">
+                    <MetricsPanel dados={dados} />
                 </section>
 
             </main>

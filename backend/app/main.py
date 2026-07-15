@@ -97,12 +97,50 @@ def obter_grafo(db: Session = Depends(get_db)):
     # Recomendação
     if score >= 80:
         recomendacao = "Investigar imediatamente"
-
     elif score >= 50:
         recomendacao = "Monitorar novas transações"
-
     else:
         recomendacao = "Sem ação imediata"
+
+    # Preparação dos nós para o React Flow
+    clientes = db.query(Cliente).all()
+    nos = []
+    for c in clientes:
+        node_id = str(c.id_cliente)
+        pr = metricas["pagerank"].get(node_id, 0)
+        deg = metricas["degree"].get(node_id, 0)
+        bw = metricas["betweenness"].get(node_id, 0)
+        
+        score_no = 0
+        if pr >= 0.20: score_no += 2
+        elif pr >= 0.10: score_no += 1
+        
+        if deg >= 15: score_no += 2
+        elif deg >= 8: score_no += 1
+        
+        if bw >= 0.30: score_no += 2
+        elif bw >= 0.10: score_no += 1
+        
+        risco_no = "Baixo"
+        if score_no >= 5: risco_no = "Alto"
+        elif score_no >= 3: risco_no = "Médio"
+
+        nos.append({
+            "id": node_id,
+            "nome": c.nome,
+            "risco": risco_no
+        })
+
+    # Preparação das arestas para o React Flow
+    arestas = [
+        {
+            "id": f"e-{t.id_cliente_origem}-{t.id_cliente_destino}-{i}",
+            "origem": str(t.id_cliente_origem),
+            "destino": str(t.id_cliente_destino),
+            "valor": float(t.valor)
+        }
+        for i, t in enumerate(transacoes)
+    ]
 
     return {
         "score_risco": score,
@@ -114,7 +152,9 @@ def obter_grafo(db: Session = Depends(get_db)):
             "nivel_influencia": analise["nivel_influencia"],
             "quantidade_conexoes": analise["quantidade_conexoes"],
             "papel_na_rede": analise["papel_na_rede"]
-        }
+        },
+        "nos": nos,
+        "arestas": arestas
     }
 @app.post("/relatorio")
 def gerar_relatorio(dados: dict = Body(...)):

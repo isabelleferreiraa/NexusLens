@@ -1,0 +1,108 @@
+.nx-graph-container {
+  display: flex;
+  flex-direction: column;
+  height: 500px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: 24px;
+}
+
+.nx-graph-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.nx-graph-legend {
+  display: flex;
+  gap: 16px;
+  background: var(--surface-2);
+  padding: 6px 12px;
+  border-radius: 100px;
+  border: 1px solid var(--border-subtle);
+}
+
+.nx-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.nx-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.nx-dot--red { background: var(--red); box-shadow: 0 0 6px var(--red); }
+.nx-dot--yellow { background: var(--yellow); box-shadow: 0 0 6px var(--yellow); }
+.nx-dot--green { background: var(--green); box-shadow: 0 0 6px var(--green); }
+
+.nx-graph-wrapper {
+  flex: 1;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+  background: #0F172A; /* Um pouco mais escuro para o fundo do grafo */
+}
+
+/* Customizando controles do React Flow */
+.react-flow__controls.nx-graph-controls {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+.react-flow__controls-button {
+  background: transparent;
+  border-bottom: 1px solid var(--border-subtle);
+  fill: var(--text-secondary);
+}
+
+.react-flow__controls-button:hover {
+  background: var(--surface-3);
+  fill: var(--text);
+}
+
+.react-flow__minimap.nx-graph-minimap {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.nx-graph-empty {
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface);
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius-lg);
+  color: var(--text-muted);
+  text-align: center;
+  padding: 32px;
+}
+
+.nx-graph-empty__icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+
+@media (max-width: 768px) {
+  .nx-graph-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+}
