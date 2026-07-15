@@ -1,11 +1,24 @@
 from fastapi import FastAPI, Depends
 from sqlalchemy.orm import Session
-from app.models.transacao import Transacao
+
 from app.database.database import SessionLocal
+
+# Models
 from app.models.cliente import Cliente
+from app.models.transacao import Transacao
+
+# Schemas
 from app.schemas.cliente import ClienteResponse
-from app.graph.graph_service import criar_grafo
-from app.graph.graph_service import calcular_metricas
+
+# IA
+from app.ai.ia_service import IAService
+
+# Serviços
+from app.graph.graph_service import criar_grafo, calcular_metricas
+from app.services.risco_service import calcular_risco
+from app.services.score_service import calcular_score
+from app.services.resumo_service import gerar_resumo
+
 
 app = FastAPI(
     title="NexusLens API",
@@ -34,6 +47,7 @@ def home():
 def listar_clientes(db: Session = Depends(get_db)):
     return db.query(Cliente).all()
 
+
 @app.get("/transacoes")
 def listar_transacoes(db: Session = Depends(get_db)):
     transacoes = db.query(Transacao).all()
@@ -47,13 +61,49 @@ def listar_transacoes(db: Session = Depends(get_db)):
         for t in transacoes
     ]
 
+
 @app.get("/grafo")
 def obter_grafo(db: Session = Depends(get_db)):
-
     transacoes = db.query(Transacao).all()
 
+    # Cria o grafo
     grafo = criar_grafo(transacoes)
 
+    # Calcula as métricas
     metricas = calcular_metricas(grafo)
 
-    return metricas
+    # Analisa o risco
+    analise = calcular_risco(metricas)
+
+    # Calcula o score
+    score = calcular_score(metricas, analise)
+
+    # Classificação
+    classificacao = analise["nivel_risco"]
+
+    # Recomendação baseada no score
+    if score >= 80:
+        recomendacao = "Investigar imediatamente"
+    elif score >= 50:
+        recomendacao = "Monitorar novas transações"
+    else:
+        recomendacao = "Sem ação imediata"
+
+    # Resumo enviado para a IA
+    resumo = gerar_resumo(metricas, analise, score)
+
+    # Geração do relatório
+    ia = IAService()
+    relatorio = ia.gerar_relatorio(resumo)
+
+    return {
+        "score_risco": score,
+        "classificacao": classificacao,
+        "recomendacao": recomendacao,
+        "metricas": {
+            "nivel_influencia": analise["nivel_influencia"],
+            "quantidade_conexoes": analise["quantidade_conexoes"],
+            "papel_na_rede": analise["papel_na_rede"]
+        },
+        "relatorio": relatorio
+    }
