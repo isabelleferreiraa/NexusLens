@@ -1,5 +1,5 @@
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI, Depends, Body
 from sqlalchemy.orm import Session
 
 from app.database.database import SessionLocal
@@ -11,14 +11,14 @@ from app.models.transacao import Transacao
 # Schemas
 from app.schemas.cliente import ClienteResponse
 
-# IA
-from app.ai.ia_service import IAService
-
 # Serviços
 from app.graph.graph_service import criar_grafo, calcular_metricas
 from app.services.risco_service import calcular_risco
 from app.services.score_service import calcular_score
 from app.services.resumo_service import gerar_resumo
+
+# IA
+from app.ai.ia_service import IAService
 
 
 app = FastAPI(
@@ -37,6 +37,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 def get_db():
     db = SessionLocal()
@@ -75,12 +76,13 @@ def listar_transacoes(db: Session = Depends(get_db)):
 
 @app.get("/grafo")
 def obter_grafo(db: Session = Depends(get_db)):
+
     transacoes = db.query(Transacao).all()
 
     # Cria o grafo
     grafo = criar_grafo(transacoes)
 
-    # Calcula as métricas
+    # Calcula métricas
     metricas = calcular_metricas(grafo)
 
     # Analisa o risco
@@ -92,29 +94,49 @@ def obter_grafo(db: Session = Depends(get_db)):
     # Classificação
     classificacao = analise["nivel_risco"]
 
-    # Recomendação baseada no score
+    # Recomendação
     if score >= 80:
         recomendacao = "Investigar imediatamente"
+
     elif score >= 50:
         recomendacao = "Monitorar novas transações"
+
     else:
         recomendacao = "Sem ação imediata"
-
-    # Resumo enviado para a IA
-    resumo = gerar_resumo(metricas, analise, score)
-
-    # Geração do relatório
-    ia = IAService()
-    relatorio = ia.gerar_relatorio(resumo)
 
     return {
         "score_risco": score,
         "classificacao": classificacao,
         "recomendacao": recomendacao,
         "metricas": {
+            "quantidade_nos": metricas["quantidade_nos"],
+            "quantidade_arestas": metricas["quantidade_arestas"],
             "nivel_influencia": analise["nivel_influencia"],
             "quantidade_conexoes": analise["quantidade_conexoes"],
             "papel_na_rede": analise["papel_na_rede"]
+        }
+    }
+@app.post("/relatorio")
+def gerar_relatorio(dados: dict = Body(...)):
+
+    resumo = gerar_resumo(
+        {
+            "quantidade_nos": dados["metricas"]["quantidade_nos"],
+            "quantidade_arestas": dados["metricas"]["quantidade_arestas"]
         },
+        {
+            "nivel_risco": dados["classificacao"],
+            "nivel_influencia": dados["metricas"]["nivel_influencia"],
+            "quantidade_conexoes": dados["metricas"]["quantidade_conexoes"],
+            "papel_na_rede": dados["metricas"]["papel_na_rede"]
+        },
+        dados["score_risco"]
+    )
+
+    ia = IAService()
+
+    relatorio = ia.gerar_relatorio(resumo)
+
+    return {
         "relatorio": relatorio
     }

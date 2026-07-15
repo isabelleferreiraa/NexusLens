@@ -1,4 +1,5 @@
 import os
+import time
 
 from dotenv import load_dotenv
 from google import genai
@@ -16,21 +17,45 @@ class IAService:
 
     def gerar_relatorio(self, resumo):
 
-        try:
+        tentativas = 3
 
-            resposta = client.models.generate_content(
-                model="gemini-3.5-flash",
-                contents=f"""
+        for tentativa in range(tentativas):
+
+            try:
+
+                resposta = client.models.generate_content(
+                    model="gemini-flash-latest",
+                    contents=f"""
 {ANALISE_GRAFO_PROMPT}
 
 Dados da análise:
 
 {resumo}
 """
-            )
+                )
 
-            return resposta.text
+                return resposta.text
 
-        except Exception as erro:
+            except Exception as erro:
 
-            return f"Erro ao gerar relatório: {erro}"
+                mensagem = str(erro)
+
+                print(f"Tentativa {tentativa + 1}: {mensagem}")
+
+                # Aguarda antes de tentar novamente apenas se for erro temporário
+                if (
+                    "503" in mensagem
+                    or "429" in mensagem
+                    or "RESOURCE_EXHAUSTED" in mensagem
+                    or "UNAVAILABLE" in mensagem
+                ) and tentativa < tentativas - 1:
+
+                    time.sleep(5)
+                    continue
+
+                break
+
+        return (
+            "Não foi possível gerar o relatório da IA neste momento. "
+            "Tente novamente em alguns instantes."
+        )

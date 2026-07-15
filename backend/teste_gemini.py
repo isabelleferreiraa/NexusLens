@@ -8,9 +8,17 @@ client = genai.Client(
     api_key=os.getenv("GEMINI_API_KEY")
 )
 
-resposta = client.models.generate_content(
-    model="gemini-3.5-flash",
-    contents="Responda apenas com a palavra OK."
-)
+try:
 
-print(resposta.text)
+    resposta = client.models.generate_content(
+        model="gemini-flash-latest",
+        contents="Explique em duas frases o que é risco financeiro."
+    )
+
+    print("\nResposta da IA:\n")
+    print(resposta.text)
+
+except Exception as erro:
+
+    print("\nErro:\n")
+    print(erro)
