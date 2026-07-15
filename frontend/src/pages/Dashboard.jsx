@@ -5,6 +5,10 @@ function Dashboard() {
 
     const [dados, setDados] = useState(null);
 
+    const [relatorio, setRelatorio] = useState("");
+
+    const [carregandoIA, setCarregandoIA] = useState(false);
+
     useEffect(() => {
 
         async function carregarDados() {
@@ -26,6 +30,34 @@ function Dashboard() {
         carregarDados();
 
     }, []);
+
+    async function gerarRelatorio() {
+
+        if (!dados) return;
+
+        setCarregandoIA(true);
+
+        try {
+
+            const resposta = await api.post("/relatorio", dados);
+
+            setRelatorio(resposta.data.relatorio);
+
+        } catch (erro) {
+
+            console.error("Erro ao gerar relatório:", erro);
+
+            setRelatorio(
+                "Não foi possível gerar o relatório da IA."
+            );
+
+        } finally {
+
+            setCarregandoIA(false);
+
+        }
+
+    }
 
     return (
         <div className="dashboard">
@@ -86,8 +118,25 @@ function Dashboard() {
 
                     <h2>Relatório da IA</h2>
 
+                    <button
+                        onClick={gerarRelatorio}
+                        disabled={carregandoIA}
+                    >
+                        {
+                            carregandoIA
+                                ? "Gerando relatório..."
+                                : "🧠 Gerar Relatório"
+                        }
+                    </button>
+
+                    <br />
+                    <br />
+
                     <p>
-                        {dados?.relatorio ?? "Carregando relatório..."}
+                        {
+                            relatorio ||
+                            "Clique no botão para gerar o relatório com IA."
+                        }
                     </p>
 
                 </section>
