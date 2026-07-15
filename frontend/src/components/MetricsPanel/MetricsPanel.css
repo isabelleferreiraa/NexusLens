@@ -1,0 +1,84 @@
+.nx-metrics-panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+  height: 100%;
+}
+
+.nx-metrics-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.nx-metric-card {
+  background: var(--surface-2);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  transition: var(--transition-base);
+}
+
+.nx-metric-card:hover {
+  background: var(--surface-3);
+  border-color: var(--border-strong);
+}
+
+.nx-metric-card--full {
+  grid-column: 1 / -1;
+}
+
+.nx-metric-card--highlight {
+  background: linear-gradient(145deg, rgba(34, 197, 94, 0.05) 0%, rgba(34, 197, 94, 0.01) 100%);
+  border: 1px solid rgba(34, 197, 94, 0.15);
+}
+
+.nx-metric-card--highlight:hover {
+  background: linear-gradient(145deg, rgba(34, 197, 94, 0.08) 0%, rgba(34, 197, 94, 0.02) 100%);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.nx-metric-card__header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.nx-metric-card__icon {
+  font-size: 16px;
+}
+
+.nx-metric-card__header h4 {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.nx-metric-card__value {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.nx-metric-card__value-text {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text);
+  line-height: 1.5;
+}
+
+.nx-metric-card--highlight .nx-metric-card__value-text {
+  color: var(--green);
+}
+
+@media (max-width: 640px) {
+  .nx-metrics-grid {
+    grid-template-columns: 1fr;
+  }
+}
