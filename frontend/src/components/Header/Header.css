@@ -1,141 +1,108 @@
 /* =========================================================
-   HEADER COMPONENT
+   HEADER COMPONENT - CORPORATE
    ========================================================= */
 
 .nx-header {
   width: 100%;
-  animation: fade-in-up var(--transition-slow) both;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
 }
 
 .nx-header__inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 24px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-sm);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  padding: 12px 24px;
+  max-width: 1600px;
+  margin: 0 auto;
 }
 
-/* --- Brand (Logo + Text) --- */
+/* --- Brand --- */
 .nx-header__brand {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
 }
 
 .nx-header__logo-icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
-  background: rgba(139, 92, 246, 0.1);
-  border: 1px solid rgba(139, 92, 246, 0.2);
-  border-radius: 12px;
-  box-shadow: inset 0 0 12px rgba(139, 92, 246, 0.05);
-  animation: glow-pulse 4s infinite ease-in-out;
+  color: var(--text);
 }
 
 .nx-header__brand-text {
   display: flex;
-  flex-direction: column;
-  gap: 2px;
+  align-items: baseline;
+  gap: 8px;
 }
 
 .nx-header__logo-name {
-  font-size: 20px;
-  font-weight: 700;
+  font-size: 15px;
+  font-weight: 600;
   color: var(--text);
-  letter-spacing: -0.03em;
-  line-height: 1.1;
-  background: linear-gradient(135deg, #F9FAFB 0%, #A78BFA 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.01em;
 }
 
 .nx-header__logo-sub {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 500;
   color: var(--text-muted);
-  letter-spacing: 0.01em;
-}
-
-/* --- Divider --- */
-.nx-header__divider {
-  flex-grow: 1;
 }
 
 /* --- Right Side --- */
 .nx-header__right {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 16px;
 }
 
 /* --- System Status --- */
 .nx-header__status {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 6px 12px;
-  background: rgba(34, 197, 94, 0.08);
-  border: 1px solid rgba(34, 197, 94, 0.15);
-  border-radius: 100px;
+  gap: 6px;
 }
 
 .nx-header__status-dot {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
   background-color: var(--green);
-  box-shadow: 0 0 8px var(--green);
-  animation: pulse-dot 2.5s infinite ease-in-out;
 }
 
 .nx-header__status-label {
   font-size: 12px;
-  font-weight: 600;
-  color: var(--green);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  font-weight: 500;
+  color: var(--text-secondary);
 }
 
 /* --- Separator --- */
 .nx-header__sep {
   width: 1px;
-  height: 24px;
-  background: var(--border-strong);
+  height: 16px;
+  background: var(--border);
 }
 
 /* --- User Profile --- */
 .nx-header__user {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
   cursor: pointer;
-  padding: 4px;
-  border-radius: var(--radius-sm);
-  transition: var(--transition-fast);
-}
-
-.nx-header__user:hover {
-  background: var(--surface-2);
 }
 
 .nx-header__avatar {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
-  background: rgba(167, 139, 250, 0.1);
-  border: 1px solid rgba(167, 139, 250, 0.2);
-  border-radius: 50%;
-  box-shadow: inset 0 0 8px rgba(167, 139, 250, 0.05);
+  width: 24px;
+  height: 24px;
+  background: var(--surface-3);
+  color: var(--text);
+  font-size: 10px;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
 }
 
 .nx-header__user-info {
@@ -144,32 +111,21 @@
 }
 
 .nx-header__user-name {
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 12px;
+  font-weight: 500;
   color: var(--text);
-  line-height: 1.2;
+  line-height: 1.1;
 }
 
 .nx-header__user-role {
-  font-size: 12px;
-  font-weight: 500;
+  font-size: 11px;
   color: var(--text-muted);
 }
 
-/* --- Responsive --- */
 @media (max-width: 768px) {
-  .nx-header__inner {
-    padding: 14px 16px;
-  }
-  
   .nx-header__logo-sub,
   .nx-header__status-label,
-  .nx-header__sep,
   .nx-header__user-info {
     display: none;
-  }
-  
-  .nx-header__right {
-    gap: 16px;
   }
 }

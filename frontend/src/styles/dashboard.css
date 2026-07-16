@@ -1,8 +1,7 @@
 /* =========================================================
-   NEXUSLENS — DASHBOARD LAYOUT
+   NEXUSLENS — CORPORATE DASHBOARD LAYOUT
    ========================================================= */
 
-/* App root */
 .nexuslens-app {
   display: flex;
   flex-direction: column;
@@ -10,16 +9,15 @@
   background-color: var(--bg);
 }
 
-/* Main content area */
 .nexuslens-main {
   flex: 1;
   width: 100%;
-  max-width: 1440px;
+  max-width: 1600px; /* Wider for data density */
   margin: 0 auto;
-  padding: 28px 32px 64px;
+  padding: 24px;
   display: flex;
   flex-direction: column;
-  gap: 28px;
+  gap: 24px;
 }
 
 /* =========================================================
@@ -29,179 +27,52 @@
 .stat-cards-row {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  gap: 16px; /* Tighter gap */
 }
 
 /* =========================================================
-   CENTRAL LAYOUT — Grafo ocupa a linha inteira
+   GRAPH AND METRICS SECTIONS
    ========================================================= */
 
 .graph-section {
   width: 100%;
-  animation: fade-in-up var(--transition-slow) both;
-  animation-delay: 200ms;
 }
-
-/* =========================================================
-   METRICS SECTION — grid de métricas
-   ========================================================= */
 
 .metrics-section {
-  animation: fade-in-up var(--transition-slow) both;
-  animation-delay: 250ms;
+  width: 100%;
 }
 
 /* =========================================================
-   SECTION HEADERS — padrão reutilizável
+   SECTION HEADERS
    ========================================================= */
 
 .section-header {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 16px;
+  gap: 8px;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
 }
 
 .section-header h2 {
-  font-size: 18px;
+  font-size: 14px;
   font-weight: 600;
   color: var(--text);
-  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .section-badge {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  padding: 3px 10px;
-  border-radius: 100px;
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
   font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  background: var(--surface-2);
-  color: var(--text-muted);
-  border: 1px solid var(--border);
-}
-
-/* =========================================================
-   SHARED CARD BASE
-   ========================================================= */
-
-.nx-card {
-  background: var(--surface);
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--border);
-  padding: 24px;
-  box-shadow: var(--shadow-md);
-  transition: border-color var(--transition-base), box-shadow var(--transition-base);
-}
-
-.nx-card:hover {
-  border-color: var(--border-strong);
-  box-shadow: var(--shadow-lg);
-}
-
-/* =========================================================
-   LEGACY SUPPORT — mantém classes do Dashboard original
-   funcional durante transição
-   ========================================================= */
-
-.dashboard {
-  max-width: 1440px;
-  margin: 0 auto;
-  padding: 28px 32px 64px;
-}
-
-.header {
-  margin-bottom: 32px;
-}
-
-.header h1 {
-  font-size: 32px;
-  font-weight: 700;
-  color: var(--text);
-}
-
-.header p {
-  margin-top: 6px;
-  color: var(--text-muted);
-  font-size: 16px;
-}
-
-.cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 20px;
-  margin-bottom: 24px;
-}
-
-.card {
-  background: var(--surface);
-  border-radius: var(--radius-lg);
-  padding: 24px;
-  box-shadow: var(--shadow-md);
-  border: 1px solid var(--border);
-  transition: var(--transition-base);
-}
-
-.card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
-  border-color: var(--border-strong);
-}
-
-.card h2 {
-  color: var(--text-muted);
-  font-size: 13px;
   font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  margin-bottom: 12px;
-}
-
-.card h3 {
-  font-size: 36px;
-  font-weight: 700;
-  color: var(--purple);
-  letter-spacing: -0.02em;
-}
-
-.card p {
-  margin-top: 10px;
-  line-height: 1.7;
+  background: var(--surface-2);
   color: var(--text-secondary);
-  font-size: 14px;
-}
-
-button {
-  margin-top: 18px;
-  background: var(--purple);
-  color: white;
-  border: none;
-  border-radius: var(--radius-md);
-  padding: 12px 24px;
-  font-size: 14px;
-  font-weight: 600;
-  transition: var(--transition-base);
-  letter-spacing: 0.01em;
-}
-
-button:hover:not(:disabled) {
-  background: var(--purple-dark);
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-purple);
-}
-
-button:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-  transform: none;
-}
-
-strong {
-  color: var(--text);
-  font-weight: 600;
+  border: 1px solid var(--border);
 }
 
 /* =========================================================
@@ -210,24 +81,18 @@ strong {
 
 @media (max-width: 1024px) {
   .nexuslens-main {
-    padding: 24px 24px 48px;
-    gap: 24px;
+    padding: 16px;
+    gap: 16px;
   }
 
   .stat-cards-row {
     grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
+    gap: 12px;
   }
 }
 
 @media (max-width: 768px) {
-  .nexuslens-main {
-    padding: 20px 16px 48px;
-    gap: 20px;
-  }
-
   .stat-cards-row {
     grid-template-columns: 1fr;
-    gap: 14px;
   }
 }
