@@ -1,36 +1,36 @@
+/* =========================================================
+   STAT CARD COMPONENT - CORPORATE
+   ========================================================= */
+
 .nx-stat-card {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 24px;
+  border-radius: var(--radius-md);
+  padding: 16px;
   display: flex;
-  align-items: flex-start;
-  gap: 16px;
+  flex-direction: column;
   box-shadow: var(--shadow-sm);
-  transition: all var(--transition-base);
-  animation: fade-in-up var(--transition-slow) both;
-  animation-delay: 150ms;
-}
-
-.nx-stat-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-md);
-  border-color: var(--border-strong);
+  position: relative;
 }
 
 .nx-stat-card__icon-wrapper {
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 48px;
-  height: 48px;
-  border-radius: var(--radius-md);
-  flex-shrink: 0;
-  transition: var(--transition-base);
+  justify-content: space-between;
+  margin-bottom: 12px;
 }
 
 .nx-stat-card__icon {
-  font-size: 24px;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.nx-stat-card__label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .nx-stat-card__content {
@@ -38,56 +38,22 @@
   flex-direction: column;
 }
 
-.nx-stat-card__label {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: 6px;
-}
-
 .nx-stat-card__value {
-  font-size: 32px;
-  font-weight: 700;
+  font-size: 24px;
+  font-weight: 600;
   color: var(--text);
   line-height: 1.1;
-  margin-bottom: 4px;
-  letter-spacing: -0.02em;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
 .nx-stat-card__desc {
-  font-size: 13px;
-  color: var(--text-faint);
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 4px;
 }
 
-/* Variations */
-.nx-stat-card--purple .nx-stat-card__icon-wrapper {
-  background: rgba(139, 92, 246, 0.1);
-  color: var(--purple);
-}
-.nx-stat-card--purple:hover .nx-stat-card__icon-wrapper {
-  background: var(--purple);
-  color: white;
-  box-shadow: var(--shadow-purple);
-}
-
-.nx-stat-card--blue .nx-stat-card__icon-wrapper {
-  background: rgba(56, 189, 248, 0.1);
-  color: var(--blue);
-}
-.nx-stat-card--blue:hover .nx-stat-card__icon-wrapper {
-  background: var(--blue);
-  color: white;
-  box-shadow: var(--shadow-blue);
-}
-
-.nx-stat-card--red .nx-stat-card__icon-wrapper {
-  background: rgba(239, 68, 68, 0.1);
-  color: var(--red);
-}
-.nx-stat-card--red:hover .nx-stat-card__icon-wrapper {
-  background: var(--red);
-  color: white;
-  box-shadow: 0 8px 24px var(--red-glow);
-}
+/* Status Indicators (Top subtle border) */
+.nx-stat-card--purple { border-top: 2px solid var(--purple); }
+.nx-stat-card--blue { border-top: 2px solid var(--blue); }
+.nx-stat-card--red { border-top: 2px solid var(--red); }
+.nx-stat-card--yellow { border-top: 2px solid var(--yellow); }
