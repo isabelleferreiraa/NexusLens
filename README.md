@@ -1,206 +1,285 @@
 # 🧠 NexusLens
 
-> Plataforma inteligente de apoio à decisão para analistas bancários, utilizando grafos e inteligência artificial para transformar dados em insights estratégicos.
+![Python](https://img.shields.io/badge/Python-3.13-blue)
+![FastAPI](https://img.shields.io/badge/FastAPI-Backend-009688)
+![React](https://img.shields.io/badge/React-Frontend-61DAFB)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-blue)
+![NetworkX](https://img.shields.io/badge/NetworkX-Graphs-orange)
+![Google Gemini](https://img.shields.io/badge/Google-Gemini-blueviolet)
+![Docker](https://img.shields.io/badge/Docker-Containerized-2496ED)
+![License](https://img.shields.io/badge/License-MIT-green)
+
+Plataforma inteligente para análise de redes financeiras utilizando Inteligência Artificial, Teoria dos Grafos e Machine Learning, desenvolvida com FastAPI, React e PostgreSQL.
 
 ---
 
-## 💼 Cenário
+# 📑 Sumário
 
-Imagine um analista de um banco responsável por avaliar centenas de clientes diariamente.
-
-Para entender o perfil financeiro de um único cliente, normalmente é necessário consultar diversas fontes de dados, interpretar movimentações, analisar produtos financeiros e elaborar um relatório executivo. Esse processo pode consumir vários minutos por cliente e exige grande esforço operacional.
-
-O **NexusLens** foi criado para automatizar esse fluxo.
-
-A plataforma reúne informações do cliente, transforma os relacionamentos em um grafo, calcula métricas relevantes e utiliza Inteligência Artificial para gerar um relatório claro, objetivo e pronto para apoiar a tomada de decisão.
-
----
-
-## 🎯 Objetivo
-
-Desenvolver uma plataforma capaz de auxiliar analistas bancários na análise do perfil financeiro de clientes através da combinação de:
-
-- 🌐 Análise de Grafos
-- 🤖 Inteligência Artificial
-- 📊 Indicadores Financeiros
-- 🏦 Banco de Dados Relacional
+- Sobre o projeto
+- Funcionalidades
+- Tecnologias
+- Arquitetura
+- Como executar
+- Estrutura
+- Endpoints
+- Inteligência Artificial
+- Teoria dos Grafos
+- Resultados
+- Objetivo
+- Aprendizados
+- Melhorias futuras
 
 ---
 
-## 🚀 Funcionalidades
+# 📌 Sobre o projeto
 
-- 🔍 Busca de clientes por ID
-- 🏦 Consulta de dados financeiros
-- 🌐 Construção automática de grafos de relacionamento
-- 📊 Cálculo de métricas financeiras
-- 🤖 Geração de relatórios executivos utilizando IA
-- 💬 Assistente inteligente para consultas sobre o cliente
-- 📈 Dashboard com indicadores estratégicos
+O **NexusLens** é uma plataforma desenvolvida para auxiliar analistas financeiros na identificação de padrões de risco em redes de transações.
 
----
+O projeto combina **Teoria dos Grafos**, **Análise de Redes** e **Inteligência Artificial** para transformar dados financeiros em informações estratégicas, permitindo identificar possíveis comportamentos suspeitos e gerar recomendações automáticas.
 
-## 🏗️ Arquitetura
+Toda a análise é realizada a partir de uma rede de transações financeiras, onde os clientes são representados como nós e as transações como conexões entre eles.
 
-```text
-               Front-end (React)
-
-                      │
-
-                      ▼
-
-               API (FastAPI)
-
-                      │
-
-        ┌─────────────┴─────────────┐
-
-        ▼                           ▼
-
- Banco de Dados             Motor Analítico
-
-(PostgreSQL)                 (NetworkX)
-
-        │                           │
-
-        └─────────────┬─────────────┘
-
-                      ▼
-
-            Inteligência Artificial
-
-                      │
-
-                      ▼
-
-            Relatório Executivo
-```
+Além da análise estrutural da rede, o sistema utiliza a API do **Google Gemini** para gerar relatórios inteligentes em linguagem natural.
 
 ---
 
-## 🛠️ Tecnologias
+# ✨ Funcionalidades
+
+A plataforma oferece as seguintes funcionalidades:
+
+- Construção de redes financeiras utilizando Teoria dos Grafos
+- Cálculo automático do Score de Risco
+- Classificação do nível de risco
+- Identificação da influência de clientes na rede
+- Geração automática de recomendações
+- Geração de relatórios inteligentes utilizando IA
+- Dashboard interativo para visualização dos resultados
+- API REST desenvolvida com FastAPI
+- Persistência dos dados em PostgreSQL
+
+---
+
+# 🛠️ Tecnologias utilizadas
 
 | Tecnologia | Finalidade |
 |------------|------------|
-| Python | Backend |
-| FastAPI | API REST |
-| PostgreSQL | Banco de Dados |
-| NetworkX | Construção e análise de grafos |
-| Pandas | Manipulação de dados |
-| React | Interface do usuário |
-| TypeScript | Front-end |
-| Docker | Containerização |
-| Pytest | Testes automatizados |
-| GitHub Actions | Integração Contínua (CI/CD) |
+| **Python 3.13** | Linguagem principal |
+| **FastAPI** | Desenvolvimento da API |
+| **React** | Interface da aplicação |
+| **Axios** | Comunicação Front-end / API |
+| **SQLAlchemy** | ORM |
+| **PostgreSQL** | Banco de dados |
+| **NetworkX** | Construção e análise dos grafos |
+| **Google Gemini API** | Geração dos relatórios inteligentes |
+| **Docker** | Containerização |
+| **Git** | Controle de versão |
 
 ---
 
-## 📂 Estrutura do Projeto
+# 🏗️ Arquitetura
+
+```mermaid
+flowchart LR
+
+A[(PostgreSQL)]
+A --> B[FastAPI]
+
+B --> C[NetworkX]
+
+C --> D[Cálculo das Métricas]
+
+D --> E[Score de Risco]
+
+D --> F[Análise Estrutural]
+
+E --> G[Google Gemini]
+
+F --> G
+
+G --> H[React Dashboard]
+```
+
+---
+
+# ⚙️ Como executar o projeto
+
+## 1. Clone o repositório
+
+```bash
+git clone https://github.com/isabelleferreiraa/NexusLens.git
+```
+
+## 2. Entre na pasta do projeto
+
+```bash
+cd NexusLens
+```
+
+---
+
+## 🐳 Opção 1 — Execução com Docker
+
+```bash
+docker compose up --build
+```
+
+---
+
+## ▶️ Opção 2 — Execução Local
+
+### Backend
+
+```bash
+cd backend
+
+python -m venv .venv
+```
+
+Ative o ambiente virtual.
+
+Instale as dependências.
+
+```bash
+pip install -r requirements.txt
+```
+
+Execute a API.
+
+```bash
+uvicorn app.main:app --reload
+```
+
+---
+
+### Frontend
+
+```bash
+cd frontend
+
+npm install
+
+npm run dev
+```
+
+---
+
+# 📂 Estrutura do projeto
 
 ```text
 NexusLens/
-│
+
 ├── backend/
+│   ├── app/
+│   ├── requirements.txt
+│   └── ...
+│
+├── frontend/
+│   ├── src/
+│   ├── public/
+│   └── ...
 │
 ├── docs/
 │
-├── frontend/
-│
-├── .gitignore
-├── LICENSE
-└── README.md
+├── docker-compose.yml
+├── README.md
+└── LICENSE
 ```
 
 ---
 
-## 🔄 Fluxo da Aplicação
+# 📡 Endpoints
 
-```text
-Analista
-
-      │
-
-      ▼
-
-Busca do Cliente
-
-      │
-
-      ▼
-
-Banco de Dados
-
-      │
-
-      ▼
-
-Construção do Grafo
-
-      │
-
-      ▼
-
-Cálculo das Métricas
-
-      │
-
-      ▼
-
-Inteligência Artificial
-
-      │
-
-      ▼
-
-Relatório Executivo
-```
+| Método | Endpoint | Descrição |
+|----------|----------|------------|
+| GET | / | Status da API |
+| GET | /clientes | Lista de clientes |
+| GET | /transacoes | Lista de transações |
+| GET | /grafo | Geração da análise financeira |
 
 ---
 
-## 🚀 Roadmap
+# 🧠 Inteligência Artificial
 
-- [x] Planejamento da solução
-- [ ] Modelagem do banco de dados
-- [ ] Desenvolvimento da API
-- [ ] Construção do grafo
-- [ ] Motor analítico
-- [ ] Integração com Inteligência Artificial
-- [ ] Dashboard Web
-- [ ] Docker
-- [ ] Testes automatizados
-- [ ] CI/CD
-- [ ] Deploy
+O NexusLens utiliza a API do **Google Gemini** para interpretar automaticamente os resultados obtidos pela análise da rede financeira.
+
+A IA recebe um resumo contendo métricas da rede e gera um relatório em linguagem natural apresentando:
+
+- Identificação do nível de risco;
+- Interpretação das conexões;
+- Possíveis padrões suspeitos;
+- Recomendações para o analista financeiro.
 
 ---
 
-## ⭐ Diferenciais
+# 🌐 Teoria dos Grafos
 
-- Arquitetura baseada em camadas
-- Modelagem relacional integrada a grafos
-- Separação entre motor analítico e Inteligência Artificial
-- Dashboard para apoio à decisão
-- Documentação completa
-- Código organizado seguindo boas práticas
-- Projeto inspirado em um cenário corporativo bancário
+A rede financeira é representada utilizando grafos.
+
+Na modelagem:
+
+- Nós representam clientes;
+- Arestas representam transações financeiras.
+
+A partir dessa estrutura são calculadas métricas como:
+
+- Influência na rede;
+- Quantidade de conexões;
+- Papel estrutural do cliente;
+- Score de risco.
 
 ---
 
-## 🔮 Próximas Evoluções
+# 📊 Resultado
 
-- Detecção de padrões financeiros
-- Score inteligente do cliente
+Ao final da análise, a plataforma fornece:
+
+- ✅ Dashboard interativo
+- ✅ Score de risco
+- ✅ Classificação automática
+- ✅ Métricas da rede financeira
+- ✅ Recomendações inteligentes
+- ✅ Relatório gerado pela IA
+- ✅ Persistência dos dados em PostgreSQL
+
+---
+
+# 🎯 Objetivo do projeto
+
+Desenvolver uma plataforma inteligente capaz de transformar dados de redes financeiras em informações estratégicas por meio da combinação entre Inteligência Artificial, Teoria dos Grafos e Engenharia de Software, apoiando processos de análise de risco e tomada de decisão.
+
+---
+
+# 💡 Aprendizados
+
+- Desenvolvimento de APIs com FastAPI
+- Construção de interfaces com React
+- Integração Front-end e Back-end
+- Modelagem de banco de dados com PostgreSQL
+- Aplicação de Teoria dos Grafos utilizando NetworkX
+- Consumo da API do Google Gemini
+- Organização de projetos Full Stack
+- Containerização com Docker
+- Boas práticas de Engenharia de Software
+
+---
+
+# 🔮 Melhorias futuras
+
+- Histórico das análises realizadas
 - Exportação de relatórios em PDF
-- Dashboard com visualização interativa de grafos
-- Novos indicadores financeiros
-- Histórico de análises
+- Sistema de autenticação de usuários
+- Atualização da rede em tempo real
+- Dashboard analítico avançado
+- Filtros inteligentes na rede financeira
 
 ---
 
-## 👨‍💻 Autora
-- Isabelle Ferreira Neri Feitoza
+# 👨‍💻 Autora
 
-- Estudante de Análise e Desenvolvimento de Sistemas — FIAP
-- RM 573507 | Turma: 1TDSPH
+**Isabelle Ferreira Neri Feitoza**
 
-LinkedIn | GitHub
+Estudante de Análise e Desenvolvimento de Sistemas — FIAP  
+RM 573507 | Turma: 1TDSPH
 
-Projeto desenvolvido para fins de estudo e demonstração de conhecimentos em Engenharia de Software, Grafos, Inteligência Artificial e Desenvolvimento Full Stack.
+- [LinkedIn](https://www.linkedin.com/in/isabelle-ferreira-8844593ab/)
+- [GitHub](https://github.com/isabelleferreiraa)
