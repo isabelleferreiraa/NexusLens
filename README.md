@@ -166,23 +166,84 @@ npm run dev
 # 📂 Estrutura do projeto
 
 ```text
-NexusLens/
-
+nexuslens/
+│
 ├── backend/
 │   ├── app/
+│   │   ├── services/
+│   │   │   ├── analise_grafo.py
+│   │   │   ├── grafo.py
+│   │   │   ├── ia.py
+│   │   │   └── score.py
+│   │   │
+│   │   ├── database.py
+│   │   ├── main.py
+│   │   ├── models.py
+│   │   ├── schemas.py
+│   │   └── __init__.py
+│   │
+│   ├── database/
+│   │   └── init.sql
+│   │
+│   ├── .env.example
+│   ├── Dockerfile
 │   ├── requirements.txt
-│   └── ...
+│   └── .gitignore
 │
 ├── frontend/
-│   ├── src/
 │   ├── public/
-│   └── ...
-│
-├── docs/
+│   │   ├── favicon.svg
+│   │   └── icons.svg
+│   │
+│   ├── src/
+│   │   ├── assets/
+│   │   │   ├── hero.png
+│   │   │   ├── react.svg
+│   │   │   └── vite.svg
+│   │   │
+│   │   ├── components/
+│   │   │   ├── AIInsights/
+│   │   │   │   ├── AIInsights.css
+│   │   │   │   └── AIInsights.jsx
+│   │   │   │
+│   │   │   ├── GraphView/
+│   │   │   │   ├── GraphView.css
+│   │   │   │   └── GraphView.jsx
+│   │   │   │
+│   │   │   ├── Header/
+│   │   │   │   ├── Header.css
+│   │   │   │   └── Header.jsx
+│   │   │   │
+│   │   │   ├── MetricsPanel/
+│   │   │   │   ├── MetricsPanel.css
+│   │   │   │   └── MetricsPanel.jsx
+│   │   │   │
+│   │   │   └── StatCard/
+│   │   │       ├── StatCard.css
+│   │   │       └── StatCard.jsx
+│   │   │
+│   │   ├── pages/
+│   │   │   └── Dashboard.jsx
+│   │   │
+│   │   ├── services/
+│   │   │   └── api.js
+│   │   │
+│   │   ├── styles/
+│   │   │   ├── dashboard.css
+│   │   │   └── global.css
+│   │   │
+│   │   ├── App.jsx
+│   │   └── main.jsx
+│   │
+│   ├── package.json
+│   ├── package-lock.json
+│   ├── vite.config.js
+│   ├── Dockerfile
+│   └── .gitignore
 │
 ├── docker-compose.yml
-├── README.md
-└── LICENSE
+├── LICENSE
+└── README.md
 ```
 
 ---
