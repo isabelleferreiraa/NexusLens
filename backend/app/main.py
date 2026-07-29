@@ -1,5 +1,5 @@
-from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI, Depends, Body
+from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 
 from app.database.database import SessionLocal
@@ -20,18 +20,21 @@ from app.services.resumo_service import gerar_resumo
 # IA
 from app.ai.ia_service import IAService
 
-
 app = FastAPI(
     title="NexusLens API",
     version="1.0.0",
     description="Plataforma de análise de grafos com IA."
 )
 
+# ===========================
+# CORS (CORRIGIDO)
+# ===========================
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "http://localhost:5174",
-        "http://127.0.0.1:5174",
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
     ],
     allow_credentials=True,
     allow_methods=["*"],
@@ -76,25 +79,18 @@ def listar_transacoes(db: Session = Depends(get_db)):
 
 @app.get("/grafo")
 def obter_grafo(db: Session = Depends(get_db)):
-
     transacoes = db.query(Transacao).all()
 
-    # Cria o grafo
     grafo = criar_grafo(transacoes)
 
-    # Calcula métricas
     metricas = calcular_metricas(grafo)
 
-    # Analisa o risco
     analise = calcular_risco(metricas)
 
-    # Calcula o score
     score = calcular_score(metricas, analise)
 
-    # Classificação
     classificacao = analise["nivel_risco"]
 
-    # Recomendação
     if score >= 80:
         recomendacao = "Investigar imediatamente"
     elif score >= 50:
@@ -102,28 +98,41 @@ def obter_grafo(db: Session = Depends(get_db)):
     else:
         recomendacao = "Sem ação imediata"
 
-    # Preparação dos nós para o React Flow
     clientes = db.query(Cliente).all()
+
     nos = []
+
     for c in clientes:
+
         node_id = str(c.id_cliente)
+
         pr = metricas["pagerank"].get(node_id, 0)
         deg = metricas["degree"].get(node_id, 0)
         bw = metricas["betweenness"].get(node_id, 0)
-        
+
         score_no = 0
-        if pr >= 0.20: score_no += 2
-        elif pr >= 0.10: score_no += 1
-        
-        if deg >= 15: score_no += 2
-        elif deg >= 8: score_no += 1
-        
-        if bw >= 0.30: score_no += 2
-        elif bw >= 0.10: score_no += 1
-        
+
+        if pr >= 0.20:
+            score_no += 2
+        elif pr >= 0.10:
+            score_no += 1
+
+        if deg >= 15:
+            score_no += 2
+        elif deg >= 8:
+            score_no += 1
+
+        if bw >= 0.30:
+            score_no += 2
+        elif bw >= 0.10:
+            score_no += 1
+
         risco_no = "Baixo"
-        if score_no >= 5: risco_no = "Alto"
-        elif score_no >= 3: risco_no = "Médio"
+
+        if score_no >= 5:
+            risco_no = "Alto"
+        elif score_no >= 3:
+            risco_no = "Médio"
 
         nos.append({
             "id": node_id,
@@ -131,7 +140,6 @@ def obter_grafo(db: Session = Depends(get_db)):
             "risco": risco_no
         })
 
-    # Preparação das arestas para o React Flow
     arestas = [
         {
             "id": f"e-{t.id_cliente_origem}-{t.id_cliente_destino}-{i}",
@@ -156,6 +164,8 @@ def obter_grafo(db: Session = Depends(get_db)):
         "nos": nos,
         "arestas": arestas
     }
+
+
 @app.post("/relatorio")
 def gerar_relatorio(dados: dict = Body(...)):
 
