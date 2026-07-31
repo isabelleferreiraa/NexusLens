@@ -1,6 +1,6 @@
 # 🧠 NexusLens
 
-![Python](https://img.shields.io/badge/Python-3.13-blue)
+![Python](https://img.shields.io/badge/Python-3-blue)
 ![FastAPI](https://img.shields.io/badge/FastAPI-Backend-009688)
 ![React](https://img.shields.io/badge/React-Frontend-61DAFB)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-blue)
@@ -9,7 +9,7 @@
 ![Docker](https://img.shields.io/badge/Docker-Containerized-2496ED)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
-Plataforma inteligente para análise de redes financeiras utilizando Inteligência Artificial, Teoria dos Grafos e Machine Learning, desenvolvida com FastAPI, React e PostgreSQL.
+Plataforma inteligente para análise de redes financeiras utilizando Inteligência Artificial Generativa, Teoria dos Grafos e análise de redes, desenvolvida com FastAPI, React e PostgreSQL.
 
 ---
 
@@ -43,6 +43,16 @@ Além da análise estrutural da rede, o sistema utiliza a API do **Google Gemini
 
 ---
 
+## 🌐 Deploy
+
+- **Frontend:** https://nexuslens-frontend.vercel.app
+- **API:** https://nexuslens-api.onrender.com
+- **Swagger:** https://nexuslens-api.onrender.com/docs
+
+> O dashboard permite visualizar métricas da rede financeira, o grafo de transações e relatórios inteligentes gerados por IA em tempo real.
+
+---
+
 # ✨ Funcionalidades
 
 A plataforma oferece as seguintes funcionalidades:
@@ -59,20 +69,22 @@ A plataforma oferece as seguintes funcionalidades:
 
 ---
 
-# 🛠️ Tecnologias utilizadas
+## 🛠️ Tecnologias utilizadas
 
 | Tecnologia | Finalidade |
 |------------|------------|
-| **Python 3.13** | Linguagem principal |
-| **FastAPI** | Desenvolvimento da API |
-| **React** | Interface da aplicação |
-| **Axios** | Comunicação Front-end / API |
-| **SQLAlchemy** | ORM |
-| **PostgreSQL** | Banco de dados |
-| **NetworkX** | Construção e análise dos grafos |
-| **Google Gemini API** | Geração dos relatórios inteligentes |
-| **Docker** | Containerização |
-| **Git** | Controle de versão |
+| Python 3 | Linguagem principal |
+| FastAPI | Desenvolvimento da API |
+| React | Interface da aplicação |
+| Axios | Comunicação Front-end / API |
+| SQLAlchemy | ORM |
+| PostgreSQL | Banco de dados |
+| NetworkX | Construção e análise dos grafos |
+| Google Gemini API | Geração dos relatórios inteligentes |
+| Docker | Containerização |
+| Render | Deploy do Back-end |
+| Vercel | Deploy do Front-end |
+| Git | Controle de versão |
 
 ---
 
@@ -290,37 +302,37 @@ A partir dessa estrutura são calculadas métricas como:
 
 ---
 
-# 📊 Resultado
+## 📊 Resultado
 
-Ao final da análise, a plataforma fornece:
+A plataforma entrega ao analista:
 
 - ✅ Dashboard interativo
-- ✅ Score de risco
-- ✅ Classificação automática
-- ✅ Métricas da rede financeira
+- ✅ Visualização da rede financeira
+- ✅ Score de risco calculado automaticamente
+- ✅ Classificação do nível de risco
+- ✅ Métricas estruturais da rede
 - ✅ Recomendações inteligentes
-- ✅ Relatório gerado pela IA
+- ✅ Relatório gerado pela IA (Google Gemini)
 - ✅ Persistência dos dados em PostgreSQL
 
 ---
 
 # 🎯 Objetivo do projeto
 
-Desenvolver uma plataforma inteligente capaz de transformar dados de redes financeiras em informações estratégicas por meio da combinação entre Inteligência Artificial, Teoria dos Grafos e Engenharia de Software, apoiando processos de análise de risco e tomada de decisão.
+Desenvolver uma plataforma inteligente capaz de transformar dados de redes financeiras em informações estratégicas por meio da combinação entre Inteligência Artificial Generativa, Teoria dos Grafos e Engenharia de Software, auxiliando analistas na identificação de padrões de risco e apoiando a tomada de decisão.
 
 ---
 
 # 💡 Aprendizados
 
-- Desenvolvimento de APIs com FastAPI
+- Desenvolvimento de APIs REST com FastAPI
 - Construção de interfaces com React
-- Integração Front-end e Back-end
-- Modelagem de banco de dados com PostgreSQL
+- Integração entre Front-end e Back-end
+- Modelagem de banco de dados PostgreSQL
 - Aplicação de Teoria dos Grafos utilizando NetworkX
-- Consumo da API do Google Gemini
-- Organização de projetos Full Stack
+- Integração com IA Generativa (Google Gemini)
 - Containerização com Docker
-- Boas práticas de Engenharia de Software
+- Deploy completo da aplicação utilizando Vercel (Frontend), Render (Back-end) e Neon (Banco de Dados PostgreSQL)
 
 ---
 
@@ -332,7 +344,8 @@ Desenvolver uma plataforma inteligente capaz de transformar dados de redes finan
 - Atualização da rede em tempo real
 - Dashboard analítico avançado
 - Filtros inteligentes na rede financeira
-
+- Upload de arquivos CSV para análise personalizada
+  
 ---
 
 # 👨‍💻 Autora
@@ -340,7 +353,6 @@ Desenvolver uma plataforma inteligente capaz de transformar dados de redes finan
 **Isabelle Ferreira Neri Feitoza**
 
 Estudante de Análise e Desenvolvimento de Sistemas — FIAP  
-RM 573507 | Turma: 1TDSPH
 
 - [LinkedIn](https://www.linkedin.com/in/isabelle-ferreira-8844593ab/)
 - [GitHub](https://github.com/isabelleferreiraa)
