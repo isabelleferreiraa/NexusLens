@@ -3,10 +3,12 @@ from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 
 from app.database.database import SessionLocal
+from app.auth.routes import router as auth_router
 
 # Models
 from app.models.cliente import Cliente
 from app.models.transacao import Transacao
+from app.models.usuario import Usuario
 
 # Schemas
 from app.schemas.cliente import ClienteResponse
@@ -26,8 +28,11 @@ app = FastAPI(
     description="Plataforma de análise de grafos com IA."
 )
 
+# Rotas de autenticação
+app.include_router(auth_router)
+
 # ===========================
-# CORS (CORRIGIDO)
+# CORS
 # ===========================
 
 app.add_middleware(
