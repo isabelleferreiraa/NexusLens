@@ -1,7 +1,46 @@
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 
 function App() {
-  return <Dashboard />;
+    const token = localStorage.getItem("access_token");
+
+    return (
+        <BrowserRouter>
+            <Routes>
+
+                <Route
+                    path="/"
+                    element={
+                        token
+                            ? <Navigate to="/dashboard" replace />
+                            : <Login />
+                    }
+                />
+
+                <Route
+                    path="/register"
+                    element={
+                        token
+                            ? <Navigate to="/dashboard" replace />
+                            : <Register />
+                    }
+                />
+
+                <Route
+                    path="/dashboard"
+                    element={
+                        token
+                            ? <Dashboard />
+                            : <Navigate to="/" replace />
+                    }
+                />
+
+            </Routes>
+        </BrowserRouter>
+    );
 }
 
 export default App;
