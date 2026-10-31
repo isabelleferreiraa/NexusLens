@@ -1,98 +1,31 @@
-/* =========================================================
-   NEXUSLENS — CORPORATE DASHBOARD LAYOUT
-   ========================================================= */
-
-.nexuslens-app {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  background-color: var(--bg);
-}
-
-.nexuslens-main {
-  flex: 1;
-  width: 100%;
-  max-width: 1600px; /* Wider for data density */
-  margin: 0 auto;
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-/* =========================================================
-   STAT CARDS ROW
-   ========================================================= */
-
-.stat-cards-row {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px; /* Tighter gap */
-}
-
-/* =========================================================
-   GRAPH AND METRICS SECTIONS
-   ========================================================= */
-
-.graph-section {
-  width: 100%;
-}
-
-.metrics-section {
-  width: 100%;
-}
-
-/* =========================================================
-   SECTION HEADERS
-   ========================================================= */
-
-.section-header {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 12px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid var(--border);
-}
-
-.section-header h2 {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--text);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.section-badge {
-  display: inline-flex;
-  align-items: center;
-  padding: 2px 6px;
-  border-radius: var(--radius-sm);
-  font-size: 11px;
-  font-weight: 500;
-  background: var(--surface-2);
-  color: var(--text-secondary);
-  border: 1px solid var(--border);
-}
-
-/* =========================================================
-   RESPONSIVE
-   ========================================================= */
-
-@media (max-width: 1024px) {
-  .nexuslens-main {
-    padding: 16px;
-    gap: 16px;
-  }
-
-  .stat-cards-row {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-  }
-}
-
-@media (max-width: 768px) {
-  .stat-cards-row {
-    grid-template-columns: 1fr;
-  }
-}
+.nexuslens-main{display:flex;flex-direction:column;gap:22px;max-width:1500px;padding:31px 39px 70px;margin:0 auto;min-width:0}
+.nl-dashboard-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:18px}
+.nl-dashboard-eyebrow{font:700 10px var(--font-ui);letter-spacing:2px;color:#687f90}
+.nl-dashboard-heading h1{font:400 clamp(36px,4vw,45px)/1 var(--font-display);color:#263541;letter-spacing:1px;margin:10px 0 8px}
+.nl-dashboard-heading p{font:400 12px/1.6 var(--font-body);color:#8292a0}
+.nl-dashboard-mode{flex-shrink:0;padding:8px 10px;border-radius:8px;background:#ebf0f3;color:#607788;font:700 10px var(--font-ui)}
+.nl-dash-status{padding:15px;background:#ecf2f6;color:#51687b;border-radius:9px;font-size:12px;border:1px solid #d9e3ea}
+.nl-dash-status--error{background:#fff1f0;border-color:#e7beb7;color:#984b41}
+.stat-cards-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.stat-cards-row .nx-stat-card{border-top:1px solid var(--border);padding:20px;border-radius:12px}
+.stat-cards-row .nx-stat-card__label{font:600 11px var(--font-ui);color:#758797;text-transform:none;letter-spacing:0}
+.stat-cards-row .nx-stat-card__value{font:700 27px var(--font-body);color:#263541;letter-spacing:-1px}
+.stat-cards-row .nx-stat-card__icon{color:#7993a5;font-size:19px}
+.nl-dashboard-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(300px,.75fr);gap:17px;align-items:stretch}
+.nl-dashboard-grid .graph-section,.nl-dashboard-grid .metrics-section{min-width:0}
+.nl-dashboard-grid .nx-graph-container,.nl-dashboard-grid .nx-metrics-panel{height:100%;min-height:520px;border-radius:13px;padding:20px}
+.nl-dashboard-grid .nx-graph-legend{flex-wrap:wrap}
+.nl-dashboard-grid .nx-graph-wrapper{min-height:420px}
+.nl-dashboard-grid .section-header h2{font:700 13px var(--font-ui);color:#334957}
+.nl-dashboard-grid .nx-metric-card__value,.nl-dashboard-grid .nx-stat-card__value{font-family:var(--font-body)}
+.nl-dashboard-grid .nx-legend-item{font-family:var(--font-body)}
+.nl-dashboard-ai .nx-ai-insights{border-left:1px solid var(--border);padding:22px;border-radius:13px}
+.nl-dashboard-ai .nx-ai-insights__title{font:700 14px var(--font-ui)}
+.nl-dashboard-ai .nx-ai-insights__btn{border-radius:8px;font:700 11px var(--font-ui);background:#667f92;border-color:#667f92;color:#fff;padding:10px 13px}
+.nl-dashboard-ai .nx-ai-insights__btn:hover:not(:disabled){background:#516c80;color:#fff}
+.nl-dashboard-ai .nx-ai-insights__text{font-family:var(--font-body)}
+.nl-dashboard-ai-note{margin:10px 2px 0;font-size:11px;color:#8796a3}
+@media(max-width:1240px){.nl-dashboard-grid{grid-template-columns:minmax(0,1fr)}.nl-dashboard-grid .nx-graph-container,.nl-dashboard-grid .nx-metrics-panel{min-height:auto}.nl-dashboard-grid .nx-graph-container{min-height:490px}}
+@media(max-width:1050px){.stat-cards-row{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:850px){.nexuslens-main{padding:28px 22px 50px}}
+@media(max-width:550px){.nexuslens-main{padding:22px 14px 45px;gap:16px}.nl-dashboard-heading{align-items:flex-start;flex-direction:column}.stat-cards-row{gap:10px}.stat-cards-row .nx-stat-card{padding:15px}.stat-cards-row .nx-stat-card__value{font-size:23px}.nl-dashboard-grid .nx-graph-container{min-height:430px}.nl-dashboard-grid .nx-graph-wrapper{min-height:320px}}
