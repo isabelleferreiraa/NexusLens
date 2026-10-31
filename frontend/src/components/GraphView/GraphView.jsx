@@ -1,101 +1,102 @@
-import { useMemo } from 'react';
-import ReactFlow, { Background, Controls, MiniMap } from 'reactflow';
-import 'reactflow/dist/style.css';
-import './GraphView.css';
+import { useMemo } from "react";
+import ReactFlow, { Background, Controls, MiniMap } from "reactflow";
+import "reactflow/dist/style.css";
+import "./GraphView.css";
 
-function GraphView({ nos = [], arestas = [] }) {
-  
+const CORES = {
+  Alto: { fundo: "#642c3c", borda: "#e9798e" },
+  "Médio": { fundo: "#594324", borda: "#e9bc62" },
+  Baixo: { fundo: "#214438", borda: "#65cfa1" },
+};
+
+function GraphView({ nos = [], arestas = [], selecionadoId, onSelecionarNo }) {
   const { nodes, edges } = useMemo(() => {
-    
-    const transformedNodes = nos.map((no, index) => {
-      const risco = no.risco || no.risk || '';
-      
-      // Cores sólidas corporativas
-      let color = '#3182CE'; // Blue
-      let borderColor = '#2B6CB0';
-      
-      if (risco.toLowerCase() === 'alto') {
-        color = '#DA3633'; // Red
-        borderColor = '#9B2C2C';
-      } else if (risco.toLowerCase() === 'médio' || risco.toLowerCase() === 'medio') {
-        color = '#D29922'; // Yellow
-        borderColor = '#975A16';
-      } else if (risco.toLowerCase() === 'baixo') {
-        color = '#238636'; // Green
-        borderColor = '#1G6325';
+    const ordenados = [...nos].sort((a, b) => String(a.id).localeCompare(String(b.id)));
+    const quantidade = ordenados.length;
+    const colunas = Math.ceil(Math.sqrt(quantidade * 1.5));
+
+    const nodes = ordenados.map((no, index) => {
+      const selecionado = String(no.id) === String(selecionadoId);
+      const cor = CORES[no.risco] ?? CORES.Baixo;
+      let position;
+      if (quantidade <= 14) {
+        const angulo = (2 * Math.PI * index) / Math.max(quantidade, 1) - Math.PI / 2;
+        const raio = Math.max(250, quantidade * 25);
+        position = {
+          x: 430 + Math.cos(angulo) * raio,
+          y: 290 + Math.sin(angulo) * raio * 0.72,
+        };
+      } else {
+        position = { x: (index % colunas) * 200, y: Math.floor(index / colunas) * 115 };
       }
 
       return {
-        id: String(no.id || index),
-        position: no.position || { 
-          x: Math.random() * 500 + 50, 
-          y: Math.random() * 300 + 50 
-        },
-        data: { 
-          label: no.nome || no.label || no.id || 'Nó' 
-        },
+        id: String(no.id),
+        position,
+        data: { label: no.nome ?? "Conta sem nome" },
         style: {
-          background: color,
-          color: '#ffffff',
-          border: `2px solid ${borderColor}`,
-          borderRadius: '4px', // Formato mais quadrado/técnico
-          padding: '6px 12px',
-          minWidth: '80px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          fontWeight: '500',
-          fontSize: '11px',
-          fontFamily: 'ui-monospace, monospace',
-          boxShadow: '0 1px 3px rgba(0,0,0,0.5)',
-        }
+          background: cor.fundo,
+          color: "#f4f6ff",
+          border: "2px solid " + (selecionado ? "#d6c5ff" : cor.borda),
+          borderRadius: "11px",
+          padding: "11px 13px",
+          minWidth: "150px",
+          textAlign: "center",
+          fontSize: "12px",
+          fontFamily: "Inter, system-ui, sans-serif",
+          fontWeight: selecionado ? "750" : "600",
+          boxShadow: selecionado ? "0 0 0 5px #a78bfa33, 0 8px 30px #0007" : "0 6px 20px #0005",
+          transition: "box-shadow .2s, border-color .2s",
+        },
       };
     });
 
-    const transformedEdges = arestas.map((aresta, index) => ({
-      id: String(aresta.id || `e-${index}`),
-      source: String(aresta.origem || aresta.source),
-      target: String(aresta.destino || aresta.target),
-      animated: false, // Remoção de animação para maior sobriedade
-      style: { stroke: '#484F58', strokeWidth: 1.5 },
-    }));
+    const edges = arestas.map((aresta, index) => {
+      const relacionada = String(aresta.origem) === String(selecionadoId) ||
+        String(aresta.destino) === String(selecionadoId);
+      return {
+        id: String(aresta.id ?? "e-" + index),
+        source: String(aresta.origem),
+        target: String(aresta.destino),
+        style: {
+          stroke: relacionada ? "#b39aff" : "#57647d",
+          strokeWidth: relacionada ? 2.7 : 1.4,
+          opacity: selecionadoId && !relacionada ? 0.45 : 0.85,
+        },
+        animated: false,
+      };
+    });
 
-    return { nodes: transformedNodes, edges: transformedEdges };
-  }, [nos, arestas]);
+    return { nodes, edges };
+  }, [nos, arestas, selecionadoId]);
 
-  if (!nos.length || !arestas.length) {
-    return (
-      <div className="nx-graph-empty">
-        <p>Aguardando dados estruturais da rede...</p>
-      </div>
-    );
+  if (!nos.length) {
+    return <div className="nx-graph-empty" role="status">Aguardando dados estruturais da rede...</div>;
   }
 
   return (
     <div className="nx-graph-container">
-      <div className="nx-graph-header">
-        <div className="section-header" style={{ border: 'none', margin: 0, padding: 0 }}>
-          <h2>Topologia de Transações</h2>
-        </div>
-        <div className="nx-graph-legend">
-          <span className="nx-legend-item"><span className="nx-dot nx-dot--red"></span> Critical</span>
-          <span className="nx-legend-item"><span className="nx-dot nx-dot--yellow"></span> Warning</span>
-          <span className="nx-legend-item"><span className="nx-dot nx-dot--green"></span> Normal</span>
-        </div>
+      <div className="nx-graph-legend" aria-label="Legenda de risco">
+        <span className="nx-legend-item"><i className="nx-dot nx-dot--red" /> Alto</span>
+        <span className="nx-legend-item"><i className="nx-dot nx-dot--yellow" /> Médio</span>
+        <span className="nx-legend-item"><i className="nx-dot nx-dot--green" /> Baixo</span>
       </div>
-      
-      <div className="nx-graph-wrapper">
-        <ReactFlow 
-          nodes={nodes} 
-          edges={edges} 
+      <div className="nx-graph-wrapper" aria-label="Grafo interativo de relacionamentos entre contas">
+        <ReactFlow
+          nodes={nodes}
+          edges={edges}
           fitView
+          fitViewOptions={{ padding: 0.25 }}
+          nodesDraggable={false}
+          nodesConnectable={false}
+          onNodeClick={(_, no) => onSelecionarNo?.(no.id)}
           attributionPosition="bottom-right"
         >
-          <Background color="#30363D" gap={16} size={1} />
-          <Controls className="nx-graph-controls" />
-          <MiniMap 
-            nodeColor={(n) => n.style?.background || '#3182CE'} 
-            maskColor="rgba(14, 17, 23, 0.6)"
+          <Background color="#293145" gap={19} size={1} />
+          <Controls className="nx-graph-controls" showInteractive={false} />
+          <MiniMap
+            nodeColor={(no) => no.style?.background ?? "#44506b"}
+            maskColor="rgba(10, 14, 27, 0.68)"
             className="nx-graph-minimap"
           />
         </ReactFlow>
