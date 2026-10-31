@@ -129,3 +129,12 @@
     display: none;
   }
 }
+
+/* Marca NexusLens 2.0: logo e tipografia do cabeçalho */
+.nx-header__brand { min-width: 0; }
+.nx-header__logo-image { width: 42px; height: 42px; flex-shrink: 0; object-fit: contain; }
+.nx-header__brand-text { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; min-width: 0; }
+.nx-header__logo-name { font-family: 'Montserrat', 'Inter', sans-serif; font-size: 17px; font-weight: 800; letter-spacing: -0.045em; line-height: 1.15; color: #F7F8F8; }
+.nx-header__logo-name span { color: #A3BBCB; }
+.nx-header__logo-sub { font-family: 'Montserrat', 'Inter', sans-serif; font-size: 9px; font-weight: 600; letter-spacing: 0.04em; color: #9BAAB5; }
+@media (max-width: 768px) { .nx-header__logo-image { width: 36px; height: 36px; } }

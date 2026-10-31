@@ -7,14 +7,17 @@ function Header() {
 
         {/* Logo */}
         <div className="nx-header__brand">
-          <div className="nx-header__logo-icon" aria-hidden="true">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M18 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3H6a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 3 3 0 0 0-3-3z"></path>
-            </svg>
-          </div>
+          <img
+            className="nx-header__logo-image"
+            src="/nexuslens-mark.png"
+            width="42"
+            height="42"
+            alt=""
+            aria-hidden="true"
+          />
           <div className="nx-header__brand-text">
-            <span className="nx-header__logo-name">NexusLens</span>
-            <span className="nx-header__logo-sub">Financial Network Analysis</span>
+            <span className="nx-header__logo-name">Nexus<span>Lens</span></span>
+            <span className="nx-header__logo-sub">Financial Intelligence</span>
           </div>
         </div>
 
