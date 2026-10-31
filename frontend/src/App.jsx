@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import Sidebar from './components/layout/Sidebar';
 import Dashboard from './pages/Dashboard';
+import TransactionsPage from './pages/TransactionsPage';
 import NetworkPage from './pages/NetworkPage';
 import NexusAIPage from './pages/NexusAIPage';
 import { pages, pageFromPath } from './routes';
@@ -59,6 +60,7 @@ function App() {
         </header>
         <div id="conteudo-principal" className="nl-page" tabIndex={-1}>
           {activePage === 'overview' ? <Dashboard onNavigate={navigate}/> :
+          activePage === 'transactions' ? <TransactionsPage/> :
           activePage === 'network' ? <NetworkPage/> :
           activePage === 'ai' ? <NexusAIPage/> : (
             <main className="nl-placeholder" aria-labelledby="nl-placeholder-title">
