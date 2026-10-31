@@ -1,96 +1,28 @@
-/* =========================================================
-   GRAPH VIEW COMPONENT - CORPORATE
-   ========================================================= */
-
 .nx-graph-container {
   display: flex;
   flex-direction: column;
-  height: 500px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-sm);
-  padding: 16px;
-}
-
-.nx-graph-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 12px;
-}
-
-.nx-graph-legend {
-  display: flex;
-  gap: 12px;
-  background: var(--bg);
-  padding: 4px 8px;
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--border-subtle);
-}
-
-.nx-legend-item {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 11px;
-  color: var(--text-muted);
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-}
-
-.nx-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-}
-
-.nx-dot--red { background: var(--red); }
-.nx-dot--yellow { background: var(--yellow); }
-.nx-dot--green { background: var(--green); }
-
-.nx-graph-wrapper {
   flex: 1;
-  border-radius: var(--radius-sm);
-  overflow: hidden;
-  border: 1px solid var(--border);
-  background: var(--bg);
-}
-
-/* Customizando controles do React Flow */
-.react-flow__controls.nx-graph-controls {
-  background: var(--surface);
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius-sm);
-  overflow: hidden;
-  box-shadow: var(--shadow-md);
-}
-
-.react-flow__controls-button {
+  height: 460px;
+  min-height: 370px;
   background: transparent;
-  border-bottom: 1px solid var(--border);
-  fill: var(--text-muted);
+  border: 0;
+  padding: 0;
+  box-shadow: none;
+  gap: 14px;
 }
-
-.react-flow__controls-button:hover {
-  background: var(--surface-2);
-  fill: var(--text);
-}
-
-.react-flow__minimap.nx-graph-minimap {
-  background: var(--surface);
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius-sm);
-  overflow: hidden;
-}
-
-.nx-graph-empty {
-  height: 500px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  color: var(--text-muted);
-  font-size: 13px;
+.nx-graph-legend { display: flex; flex-wrap: wrap; gap: 16px; padding: 3px 0; }
+.nx-legend-item { display: inline-flex; gap: 7px; align-items: center; color: #9dabbe; font-size: 11px; }
+.nx-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+.nx-dot--red { background: #e9798e; }
+.nx-dot--yellow { background: #e9bc62; }
+.nx-dot--green { background: #65cfa1; }
+.nx-graph-wrapper { flex: 1; min-height: 320px; border-radius: 12px; overflow: hidden; border: 1px solid #30394e; background: #0c1321; }
+.nx-graph-wrapper .react-flow__controls { background: #172031; border: 1px solid #40465a; border-radius: 10px; box-shadow: 0 5px 20px #0005; overflow: hidden; }
+.nx-graph-wrapper .react-flow__controls-button { background: #172031; fill: #d3dbee; border-bottom-color: #354055; }
+.nx-graph-wrapper .react-flow__controls-button:hover { background: #28344c; }
+.nx-graph-wrapper .react-flow__minimap { border: 1px solid #3f465c; background: #141d2c; border-radius: 9px; overflow: hidden; }
+.nx-graph-empty { display: grid; place-items: center; flex: 1; height: 460px; border: 1px dashed #34415c; border-radius: 12px; color: #94a1b6; font-size: 13px; text-align: center; padding: 20px; }
+@media (max-width: 690px) {
+  .nx-graph-container { height: 390px; min-height: 350px; }
+  .nx-graph-wrapper { min-height: 320px; }
 }

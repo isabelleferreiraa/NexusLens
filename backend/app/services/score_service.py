@@ -1,12 +1,13 @@
 def calcular_score(metricas, analise):
     """
-    Calcula um score de risco de 0 a 100
-    baseado nas métricas do grafo.
-    """
+    Calcula pontuação heurística de 0 a 100 para a estrutura da rede.
 
+    ATENÇÃO: centralidade de grafo não equivale a probabilidade de fraude.
+    A pontuação serve somente para priorizar revisão exploratória.
+    O argumento `metricas` é mantido por compatibilidade com o endpoint atual.
+    """
     score = 0
 
-    # Influência na rede
     if analise["nivel_influencia"] == "Alta":
         score += 35
     elif analise["nivel_influencia"] == "Média":
@@ -14,21 +15,20 @@ def calcular_score(metricas, analise):
     else:
         score += 10
 
-    # Quantidade de conexões
-    if analise["quantidade_conexoes"] == "Alta":
+    # Alinhado aos rótulos produzidos pelo risco_service:
+    # "Elevada", "Moderada" e "Baixa".
+    if analise["quantidade_conexoes"] == "Elevada":
         score += 30
-    elif analise["quantidade_conexoes"] == "Média":
+    elif analise["quantidade_conexoes"] == "Moderada":
         score += 20
     else:
         score += 10
 
-    # Papel do cliente na rede
     if analise["papel_na_rede"] == "Intermediador":
         score += 20
     else:
         score += 10
 
-    # Nível de risco calculado pela engine
     if analise["nivel_risco"] == "Alto":
         score += 15
     elif analise["nivel_risco"] == "Médio":

@@ -1,20 +1,19 @@
 def gerar_resumo(metricas, analise, score):
-    """
-    Organiza as informações que serão enviadas para a IA.
-    """
+    """Resumo estrutural agregado enviado ao modelo de linguagem."""
 
     return f"""
-Resumo da análise da rede financeira
+Resumo de métricas agregadas da rede financeira
 
-Quantidade de clientes: {metricas["quantidade_nos"]}
-Quantidade de transações: {metricas["quantidade_arestas"]}
+Contas representadas no grafo: {metricas["quantidade_nos"]}
+Conexões representadas no grafo: {metricas["quantidade_arestas"]}
 
-Score de risco: {score}/100
+Score heurístico da rede: {score}/100
 
-Nível de risco: {analise["nivel_risco"]}
-Nível de influência: {analise["nivel_influencia"]}
-Quantidade de conexões: {analise["quantidade_conexoes"]}
-Papel na rede: {analise["papel_na_rede"]}
+Classificação heurística: {analise["nivel_risco"]}
+Maior nível de influência observado: {analise["nivel_influencia"]}
+Categoria de conexões: {analise["quantidade_conexoes"]}
+Papel estrutural predominante no resumo: {analise["papel_na_rede"]}
 
-Gere um parecer executivo curto, explicando o significado desse score e indicando se o cliente deve ser monitorado, investigado ou apenas acompanhado.
+Não foram fornecidos dados de horários, padrões individuais ou evidência de fraude.
+Gere um parecer exploratório da rede e sugira validações para o analista.
 """
