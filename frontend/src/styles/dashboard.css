@@ -149,3 +149,5 @@
 @media (prefers-reduced-motion: reduce) {
   .nx-shell * { transition: none !important; animation: none !important; }
 }
+
+.nx-ai-error { margin-bottom: 12px; padding: 10px 12px; border-radius: 9px; border: 1px solid #9c4554; color: #ffdce0; background: #422632; font-size: 12px; line-height: 1.5; }
