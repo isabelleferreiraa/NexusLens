@@ -1,0 +1,25 @@
+.nl-feature-page { max-width: 1460px; padding: 38px 40px 72px; margin: 0 auto; }
+.nl-feature-heading { display:flex; align-items:flex-end; justify-content:space-between; flex-wrap:wrap; gap:18px; margin-bottom:24px; }
+.nl-feature-eyebrow { font:700 10px var(--font-ui); letter-spacing:1.7px; color:#71899a; }
+.nl-feature-heading h1 { font:400 clamp(37px,4vw,52px)/1.1 var(--font-display); letter-spacing:.5px; color:#273947; margin:7px 0; }
+.nl-feature-heading p { color:#788b9b; font-size:13px; }
+.nl-action-button { background:#667f92; color:white; padding:11px 15px; border-radius:9px; font:700 12px var(--font-ui); }
+.nl-action-button:hover { background:#526a7c; }
+.nl-action-button:disabled { opacity:.5; }
+.nl-feature-state { background:#eaf1f5; color:#536d80; border:1px solid #d5e0e7; border-radius:10px; padding:13px 16px; font-size:13px; margin-bottom:18px; }
+.nl-feature-state--error { background:#fff3f1; color:#a44438; border-color:#e8cac3; }
+.nl-feature-state button { margin-left:10px; text-decoration:underline; color:inherit; }
+.nl-feature-network { display:grid; grid-template-columns:minmax(0,1.45fr) minmax(280px,.65fr); gap:16px; align-items:stretch; }
+.nl-feature-network .nx-graph-container { min-height:600px; height:600px; border-radius:15px; }
+.nl-feature-network .nx-metrics-panel { height:100%; border-radius:15px; }
+.nl-feature-network .nx-graph-wrapper { min-height:430px; }
+.nl-feature-note { color:#8294a1; font-size:11px; line-height:1.7; margin-top:15px; }
+.nl-feature-page--ai { max-width:1100px; }
+.nl-ai-card { background:#fff; border:1px solid #e2e9ee; border-radius:16px; padding:25px; }
+.nl-ai-context { padding:11px 14px; background:#edf2f5; color:#556e80; font-size:12px; border-radius:9px; margin-bottom:20px; }
+.nl-ai-card .nx-ai-insights { box-shadow:none; border-radius:12px; border-left:1px solid var(--border); }
+.nl-ai-card .nx-ai-insights__btn { color:white; background:#667f92; padding:9px 13px; border-radius:9px; }
+.nl-ai-card .nx-ai-insights__text { font-family:var(--font-body); }
+.nl-feature-network .nx-graph-legend, .nl-feature-network .nx-metric-card__value { font-family:var(--font-body); }
+@media(max-width:1120px) { .nl-feature-network { grid-template-columns:1fr; } .nl-feature-network .nx-graph-container { height:530px; min-height:530px; } }
+@media(max-width:680px) { .nl-feature-page { padding:24px 15px 45px; } .nl-feature-network .nx-graph-container { height:440px; min-height:440px; } .nl-ai-card { padding:13px; } }

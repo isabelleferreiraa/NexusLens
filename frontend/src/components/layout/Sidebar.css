@@ -42,3 +42,5 @@
 .nl-sidebar-caption{display:block!important}
 }
 @media(prefers-reduced-motion:reduce){.nl-sidebar,.nl-sidebar-link{transition:none}}
+
+.nl-sidebar-link { text-decoration: none; }

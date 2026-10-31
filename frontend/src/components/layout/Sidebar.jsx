@@ -1,3 +1,4 @@
+import { pages } from '../../routes';
 import './Sidebar.css';
 
 const items = [
@@ -56,18 +57,22 @@ function Sidebar({ activePage, onNavigate, collapsed, onToggleCollapse, mobileOp
         <span className="nl-sidebar-caption">MENU PRINCIPAL</span>
         <nav className="nl-sidebar-nav" aria-label="Páginas do NexusLens">
           {items.map((item) => (
-            <button
+            <a
               className={'nl-sidebar-link ' + (activePage === item.id ? 'nl-sidebar-link--active' : '')}
-              type="button"
+              href={pages[item.id].path}
               key={item.id}
               title={item.label}
-              onClick={() => onNavigate(item.id)}
+              onClick={(event) => {
+                if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
+                event.preventDefault();
+                onNavigate(item.id);
+              }}
               aria-current={activePage === item.id ? 'page' : undefined}
             >
               <NavIcon name={item.icon}/>
               <span className="nl-sidebar-link-label">{item.label}</span>
               {activePage === item.id && <i className="nl-sidebar-active-dot" aria-hidden="true" />}
-            </button>
+            </a>
           ))}
         </nav>
         <div className="nl-sidebar-demo">
