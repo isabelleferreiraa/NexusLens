@@ -60,7 +60,7 @@ function App() {
         </header>
         <div id="conteudo-principal" className="nl-page" tabIndex={-1}>
           {activePage === 'overview' ? <Dashboard onNavigate={navigate}/> :
-          activePage === 'transactions' ? <TransactionsPage/> :
+          activePage === 'transactions' ? <TransactionsPage onNavigate={navigate}/> :
           activePage === 'network' ? <NetworkPage/> :
           activePage === 'ai' ? <NexusAIPage/> : (
             <main className="nl-placeholder" aria-labelledby="nl-placeholder-title">
