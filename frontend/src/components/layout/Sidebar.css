@@ -1,0 +1,46 @@
+.nl-sidebar{position:relative;display:flex;flex-direction:column;min-height:100vh;min-width:0;padding:29px 16px 19px;background:#222B34;color:#d9e3ea;border-right:1px solid #3c4b57;z-index:21}
+.nl-sidebar-brand{display:flex;align-items:center;gap:10px;padding:0 13px 28px;border-bottom:1px solid #ffffff16;min-width:0}
+.nl-sidebar-brand img{flex:0 0 46px;object-fit:contain}
+.nl-sidebar-brand-text{white-space:nowrap;min-width:0}
+.nl-sidebar-brand-text strong{display:block;font:800 18px/1.1 var(--font-ui);letter-spacing:-.9px;color:#f7f8f8}
+.nl-sidebar-brand-text strong span{color:#b1c9d7}
+.nl-sidebar-brand-text small{display:block;font:600 9px/1.4 var(--font-ui);color:#9baebb;margin-top:5px;letter-spacing:.9px}
+.nl-sidebar-caption{font:700 10px var(--font-ui);letter-spacing:1.3px;color:#9cb0bf;margin:29px 13px 12px}
+.nl-sidebar-nav{display:flex;flex-direction:column;gap:5px}
+.nl-sidebar-link{display:flex;align-items:center;gap:14px;border:1px solid transparent;color:#c9d4dd;background:none;width:100%;min-height:44px;border-radius:10px;padding:0 13px;text-align:left;transition:background .15s ease,border .15s ease}
+.nl-sidebar-link:hover{background:#33434e;color:#fff}
+.nl-sidebar-link:focus-visible{outline:2px solid #c0d8e7;outline-offset:2px}
+.nl-sidebar-link--active{color:#fff;background:#3c5061;border-color:#526879;box-shadow:inset 3px 0 #b4cedd}
+.nl-sidebar-link svg{flex:0 0 19px}
+.nl-sidebar-link-label{flex:1;white-space:nowrap;font:600 12px var(--font-ui)}
+.nl-sidebar-active-dot{width:5px;height:5px;flex:0 0 5px;background:#d2e2ed;border-radius:50%}
+.nl-sidebar-demo{margin-top:auto;border-top:1px solid #ffffff16;padding:19px 13px 0;display:flex;gap:10px;align-items:flex-start}
+.nl-sidebar-demo-dot{width:8px;height:8px;flex:0 0 8px;margin-top:4px;border-radius:50%;background:#accadb;box-shadow:0 0 0 3px #4f6474}
+.nl-sidebar-demo strong{font:600 11px var(--font-ui);color:#e5edf4}
+.nl-sidebar-demo p{font:400 11px/1.5 var(--font-body);color:#acbdca;margin-top:5px}
+.nl-sidebar-collapse{position:absolute;right:-13px;top:86px;display:grid;place-items:center;width:26px;height:26px;color:#637c8b;background:#fff;border:1px solid #dfe5ea;border-radius:50%;box-shadow:0 3px 10px #2030401c;z-index:4}
+.nl-sidebar-collapse:hover{background:#ebf1f5}
+.nl-sidebar-mobile-close,.nl-sidebar-overlay{display:none}
+.nl-app--collapsed .nl-sidebar{padding-left:10px;padding-right:10px}
+.nl-app--collapsed .nl-sidebar-brand{justify-content:center;padding:0 0 28px}
+.nl-app--collapsed .nl-sidebar-brand img{flex-basis:44px;width:44px}
+.nl-app--collapsed .nl-sidebar-brand-text,.nl-app--collapsed .nl-sidebar-caption,.nl-app--collapsed .nl-sidebar-link-label,.nl-app--collapsed .nl-sidebar-active-dot,.nl-app--collapsed .nl-sidebar-demo>div{display:none}
+.nl-app--collapsed .nl-sidebar-link{justify-content:center;padding:0}
+.nl-app--collapsed .nl-sidebar-demo{justify-content:center;padding-left:0;padding-right:0}
+.nl-app--collapsed .nl-sidebar-collapse svg{transform:rotate(180deg)}
+@media(max-width:850px){
+.nl-sidebar{position:fixed;top:0;bottom:0;left:0;width:min(290px,84vw);transform:translateX(-102%);transition:transform .22s ease;min-height:auto;overflow-y:auto;box-shadow:10px 0 35px #14223125;z-index:101}
+.nl-sidebar--open{transform:translateX(0)}
+.nl-sidebar-collapse{display:none}
+.nl-sidebar-mobile-close{display:grid;place-items:center;font-size:24px;margin-left:auto;color:#e7eef5;background:#3b4a58;border-radius:9px;width:30px;height:30px}
+.nl-sidebar-overlay--visible{display:block;position:fixed;inset:0;border:0;width:100%;height:100vh;padding:0;margin:0;background:#10192399;z-index:100}
+.nl-sidebar-brand-text,.nl-sidebar-caption,.nl-sidebar-link-label,.nl-sidebar-active-dot,.nl-sidebar-demo>div{display:initial!important}
+.nl-sidebar-brand-text{display:block!important}
+.nl-sidebar-brand{justify-content:flex-start!important;padding:0 6px 24px!important}
+.nl-sidebar-demo{justify-content:flex-start!important}
+.nl-sidebar-link{justify-content:flex-start!important;gap:14px!important;padding:0 13px!important}
+.nl-sidebar-caption{display:block!important}
+}
+@media(prefers-reduced-motion:reduce){.nl-sidebar,.nl-sidebar-link{transition:none}}
+
+.nl-sidebar-link { text-decoration: none; }
