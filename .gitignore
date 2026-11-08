@@ -216,3 +216,9 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# IBM AML-Data: nunca versionar CSVs brutos/derivados
+/data/raw/
+/data/derived/
+/backend/data/raw/
+/backend/data/derived/
