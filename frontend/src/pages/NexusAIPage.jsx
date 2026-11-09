@@ -2,6 +2,7 @@ import { useState } from 'react';
 import useGrafo from '../hooks/useGrafo';
 import api from '../services/api';
 import DatasetNotice from '../components/layout/DatasetNotice';
+import { ibmReportPayload } from '../utils/reports';
 import AIInsights from '../components/AIInsights/AIInsights';
 import '../styles/feature-pages.css';
 
@@ -11,13 +12,18 @@ export default function NexusAIPage() {
   const [erroIA, setErroIA] = useState('');
 
   async function gerarRelatorio() {
-    if (!dados || !dados.metricas || !dados.disponivel || carregandoIA) return;
+    if (carregandoIA) return;
+    const payload = ibmReportPayload(dados);
+    if (!payload) {
+      setErroIA('As métricas da IBM estão incompletas; atualize a rede antes de gerar o relatório.');
+      return;
+    }
     setCarregandoIA(true);
     setErroIA('');
     try {
       // Gemini's only responsibility is to turn IBM-network metrics into a written report.
       // The backend does not receive simulator laundering labels.
-      const resposta = await api.post('/relatorio', dados);
+      const resposta = await api.post('/relatorio', payload);
       const relatorio = resposta.data?.relatorio;
       if (typeof relatorio !== 'string' || !relatorio.trim()) throw new Error('Relatório vazio');
       setDados((anterior) => ({ ...anterior, relatorio }));

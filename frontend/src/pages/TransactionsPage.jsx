@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import api from '../services/api';
-import { IBM_AML, syntheticAccountName } from '../utils/datasets';
+import { IBM_AML, syntheticAccountName, validateIbmTransactionsPage } from '../utils/datasets';
 import { normalizarTransacoes, resumoTransacoes, filtrarTransacoes, formatarMoeda, formatarData } from '../utils/transactions';
 import DatasetNotice from '../components/layout/DatasetNotice';
 import TransactionDetailsDrawer from '../components/transactions/TransactionDetailsDrawer';
@@ -46,7 +46,7 @@ export default function TransactionsPage({ onNavigate }) {
           setSituacao(payload.situacao ?? 'nao_importado');
           return;
         }
-        if (payload?.disponivel !== true || payload?.moeda !== currency || !Array.isArray(payload.transacoes)) {
+        if (!validateIbmTransactionsPage(payload)) {
           throw new Error('Resposta da API IBM inesperada');
         }
         const contas = new Map();

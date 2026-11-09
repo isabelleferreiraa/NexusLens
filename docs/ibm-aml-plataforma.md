@@ -55,3 +55,15 @@ Amostras são demonstrativas e, pelo importador atual, enriquecidas com transaç
 - O frontend ainda não possui filtros de busca globais no servidor para as transações; filtros atuam por página.
 - A evolução das regras de detecção, Investigações e Histórico de Relatórios continua pendente.
 - Para avaliar algoritmos com os rótulos IBM, separar um conjunto de teste não enriquecido e sem vazamento dos rótulos para as heurísticas.
+
+
+## Verificações adicionadas ao fechamento da integração
+
+- **Fonte única:** a interface utiliza apenas `/datasets/ibm-aml/*`, sem fallback para `/grafo` e `/transacoes` demonstrativos.
+- **Contrato da rede:** a interface verifica que o payload identifica a IBM, é sintético, está em USD, possui contas e arestas consistentes e métricas calculadas. Respostas incompletas geram estado de erro, nunca dados fictícios.
+- **Score estrutural:** foram alinhadas as categorias `Elevada`/`Moderada` do serviço de risco com os pesos de conexões do score. Os pesos são heurísticos e não correspondem à probabilidade de lavagem.
+- **Gemini:** Nexus AI envia somente classificação, score e métricas agregadas para `/relatorio`. Contas, transações e rótulos do simulador ficam fora do pedido.
+- **Paginação:** as transações IBM são listadas até 200 por página e os filtros/ordenação são locais à página atual.
+- **Validação manual:** veja `docs/ibm-aml-validation.md`. A checagem real com PostgreSQL só é considerada concluída após rodar a suíte opt-in em banco local de teste.
+
+**Importante:** este commit fecha a integração de código, **não comprova que o CSV oficial já foi importado no Neon/Render**. A interface exibirá um aviso de indisponibilidade até que uma amostra IBM seja importada e a API seja publicada com a autorização da pessoa responsável pelo ambiente.

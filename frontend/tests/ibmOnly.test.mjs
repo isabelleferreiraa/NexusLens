@@ -13,7 +13,7 @@ test('Somente a IBM está configurada como fonte', () => {
 test('Nunca aceita dados demo ou payload sem selo de disponibilidade IBM', () => {
   assert.equal(validateIbmGraph({ nos: [], arestas: [] }).ok, false);
   assert.equal(validateIbmGraph({ disponivel: true, moeda: 'BRL', nos: [], arestas: [] }).ok, false);
-  assert.equal(validateIbmGraph({ disponivel: true, moeda: 'USD', nos: [], arestas: [] }).ok, true);
+  assert.equal(validateIbmGraph({ disponivel: true, moeda: 'USD', nos: [], arestas: [] }).ok, false);
 });
 test('Indisponibilidade mostra mensagem, sem fallback demonstrativo', () => {
   const result = validateIbmGraph({ disponivel: false, situacao: 'nao_importado' });

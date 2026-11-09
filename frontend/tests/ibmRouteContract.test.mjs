@@ -24,6 +24,7 @@ test('a página de transações não contém fallback para os endpoints antigos'
 test('o Gemini só gera um relatório com dados do grafo IBM', () => {
   const page = read('pages/NexusAIPage.jsx');
   assert.match(page, /useGrafo\(\)/);
-  assert.match(page, /api\.post\(['"]\/relatorio['"], dados\)/);
-  assert.match(page, /!dados\.disponivel/);
+  assert.match(page, /api\.post\(['"]\/relatorio['"], payload\)/);
+  assert.match(page, /ibmReportPayload\(dados\)/);
+  assert.match(page, /if \(\!payload\)/);
 });
