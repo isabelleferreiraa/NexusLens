@@ -3,6 +3,7 @@ import useGrafo from '../hooks/useGrafo';
 import DatasetNotice from '../components/layout/DatasetNotice';
 import { criarSinaisEstruturais, filtrarSinais, resumirSinais } from '../utils/alerts';
 import AlertDetailsDrawer from '../components/alerts/AlertDetailsDrawer';
+import PatternAlertsPanel from '../components/alerts/PatternAlertsPanel';
 import '../styles/alerts.css';
 
 export default function AlertsPage({ onNavigate }) {
@@ -20,15 +21,16 @@ export default function AlertsPage({ onNavigate }) {
   return <main className="nl-alerts" aria-labelledby="nl-alerts-title">
     <div className="nl-alerts-heading">
       <div><span className="nl-alerts-overline">MONITORAMENTO / SINAIS ESTRUTURAIS</span><h1 id="nl-alerts-title">CENTRAL DE ALERTAS</h1>
-        <p>Explore contas classificadas para revisão a partir das métricas da rede financeira.</p></div>
+        <p>Investigue padrões de movimentação e contas classificadas para revisão no grafo IBM.</p></div>
       <button type="button" className="nl-alerts-refresh" onClick={recarregar} disabled={carregando}>↻ {carregando ? 'Atualizando...' : 'Atualizar análise'}</button>
     </div>
 
     <DatasetNotice unavailable={indisponivel} status={situacao}/>
-    <div className="nl-alerts-context"><span className="nl-alerts-context-icon" aria-hidden="true">ⓘ</span><p><strong>Triagem exploratória.</strong> A API ainda não fornece eventos de alerta independentes. Esta lista mostra contas com classificação <strong>alta ou média</strong> no grafo, sem afirmar que houve fraude.</p></div>
+    <div className="nl-alerts-context"><span className="nl-alerts-context-icon" aria-hidden="true">ⓘ</span><p><strong>Triagem exploratória.</strong> Os padrões acima são calculados sob demanda e não são alertas persistidos. A fila estrutural abaixo mostra contas com classificação <strong>alta ou média</strong> no grafo, sem afirmar que houve fraude.</p></div>
     {carregando && <p className="nl-alerts-notice" role="status">Carregando classificações da API...</p>}
     {erro && <p className="nl-alerts-notice nl-alerts-notice--error" role="alert">{erro} <button type="button" onClick={recarregar}>Tentar novamente</button></p>}
 
+    <PatternAlertsPanel/>
     <section className="nl-alerts-stats" aria-label="Resumo de sinais estruturais">
       <article><span>Contas para revisão</span><strong>{dados ? resumo.total : '—'}</strong><small>Classificação média ou alta</small><i aria-hidden="true">◎</i></article>
       <article><span>Classificação alta</span><strong>{dados ? resumo.altos : '—'}</strong><small>Maior prioridade de análise</small><i aria-hidden="true">◈</i></article>

@@ -8,7 +8,7 @@ from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import Session
 
-from app.services.ibm_aml_service import build_graph, dataset_status, list_transactions
+from app.services.ibm_aml_service import build_graph, build_alerts, dataset_status, list_transactions
 
 router = APIRouter(prefix="/datasets/ibm-aml", tags=["IBM AML-Data (sintético)"])
 
@@ -51,3 +51,12 @@ def get_graph(
     db: Session = Depends(get_ibm_db),
 ):
     return _safe_read(lambda: build_graph(db, limit=limit))
+
+
+@router.get("/alertas")
+def get_alerts(
+    limit: int = Query(1500, ge=1, le=1500),
+    max_eventos: int = Query(100, ge=1, le=100),
+    db: Session = Depends(get_ibm_db),
+):
+    return _safe_read(lambda: build_alerts(db, limit=limit, max_eventos=max_eventos))

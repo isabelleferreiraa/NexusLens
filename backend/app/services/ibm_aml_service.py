@@ -194,3 +194,17 @@ def build_graph(db, *, limit=1500) -> dict:
         "transacoes_no_recorte": len(transactions),
         "recorte_parcial": len(transactions) < status["total_transacoes"],
     }
+
+
+def build_alerts(db, *, limit=1500, max_eventos=100) -> dict:
+    """Read-only detection in the same 1,500-transaction IBM slice as the graph."""
+    from app.services.ibm_alert_rules import detectar_sinais
+    status = dataset_status(db)
+    if not status["disponivel"]:
+        return {**status, "alertas": [], "total_alertas": 0,
+                "transacoes_analisadas": 0, "recorte_parcial": False}
+    source = [_payment(row) for row in _read_transactions(db, limit=limit)]
+    patterns = detectar_sinais(source, max_eventos=max_eventos)
+    return {**status, "alertas": patterns, "total_alertas": len(patterns),
+            "transacoes_analisadas": len(source),
+            "recorte_parcial": len(source) < status["total_transacoes"]}
