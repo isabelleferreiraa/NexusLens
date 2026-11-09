@@ -1,10 +1,10 @@
 import { useEffect, useRef } from 'react';
 
-const moeda = (valor) => valor === null ? 'Não disponível' : new Intl.NumberFormat('pt-BR', {
-  style: 'currency', currency: 'BRL',
+const moeda = (valor, currency = 'USD') => valor === null ? 'Não disponível' : new Intl.NumberFormat('pt-BR', {
+  style: 'currency', currency,
 }).format(valor);
 
-export default function AlertDetailsDrawer({ sinal, onClose, onNetwork }) {
+export default function AlertDetailsDrawer({ sinal, onClose, onNetwork, currency = 'USD' }) {
   const closeRef = useRef(null);
   const drawerRef = useRef(null);
   const closeCallback = useRef(onClose);
@@ -62,7 +62,7 @@ export default function AlertDetailsDrawer({ sinal, onClose, onNetwork }) {
           <div><span>Contas conectadas</span><strong>{sinal.grau}</strong></div>
           <div><span>Transações relacionadas</span><strong>{sinal.transacoes}</strong></div>
         </div>
-        <div className="nl-alerts-drawer-volume"><span>Volume relacionado</span><strong>{moeda(sinal.volume)}</strong></div>
+        <div className="nl-alerts-drawer-volume"><span>Volume relacionado</span><strong>{moeda(sinal.volume, currency)}</strong></div>
         <div className="nl-alerts-disclaimer">Este sinal é uma indicação heurística para revisão, não uma confirmação de fraude. Não há data nem status de investigação disponíveis neste endpoint.</div>
         <button type="button" className="nl-alerts-open-network" onClick={onNetwork}>Abrir Rede Financeira <span aria-hidden="true">↗</span></button>
       </div>

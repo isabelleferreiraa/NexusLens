@@ -1,0 +1,6 @@
+.nl-dataset-notice{display:flex;align-items:start;gap:10px;background:#eaf1f6;border:1px solid #d7e5ed;border-radius:11px;padding:13px 16px;margin:0 0 19px;color:#647f91}
+.nl-dataset-notice--unavailable{background:#fff8ed;border-color:#efdfc5;color:#90714b}
+.nl-dataset-notice-icon{display:grid;place-items:center;flex:0 0 21px;height:21px;border-radius:50%;background:#cddfeb;color:#476e87;font:800 12px var(--font-ui)}
+.nl-dataset-notice--unavailable .nl-dataset-notice-icon{background:#eeddbb;color:#896a3c}
+.nl-dataset-notice strong{display:block;font:700 11px var(--font-ui);margin:1px 0 4px}
+.nl-dataset-notice p{font:400 11px/1.65 var(--font-body);margin:0}

@@ -11,11 +11,11 @@ function normalizar(valor) {
 const prioridade = { alto: 2, medio: 1 };
 
 /**
- * A API /grafo classifica contas; ela ainda NÃO retorna eventos de alerta.
+ * A API IBM /datasets/ibm-aml/grafo classifica contas; ela ainda NÃO retorna eventos de alerta.
  * Cada item representa uma conta classificada para revisão, não uma suspeita
  * de transação específica, nem um alerta persistido no banco.
  */
-export function criarSinaisEstruturais(dados) {
+export function criarSinaisEstruturais(dados, fonte = '/datasets/ibm-aml/grafo') {
   if (!Array.isArray(dados?.nos) || !Array.isArray(dados?.arestas)) return [];
 
   const modelo = construirModeloGrafo(dados.nos, dados.arestas);
@@ -31,7 +31,7 @@ export function criarSinaisEstruturais(dados) {
       texto: conta.risco === 'alto'
         ? 'Conta classificada com risco estrutural alto pela análise da rede.'
         : 'Conta classificada com risco estrutural médio pela análise da rede.',
-      fonte: '/grafo',
+      fonte,
     }))
     .sort((a, b) => prioridade[b.nivel] - prioridade[a.nivel] || b.grau - a.grau || a.id.localeCompare(b.id));
 }
