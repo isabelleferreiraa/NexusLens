@@ -1,4 +1,5 @@
 import useGrafo from '../hooks/useGrafo';
+import DatasetNotice from '../components/layout/DatasetNotice';
 import { getOverview } from '../utils/overview';
 import '../styles/dashboard.css';
 
@@ -17,25 +18,26 @@ function Stat({ label, value, hint, icon }) {
 }
 
 export default function Dashboard({ onNavigate }) {
-  const { dados, carregando, erro, recarregar } = useGrafo();
+  const { dados, carregando, erro, indisponivel, situacao, recarregar } = useGrafo();
   const info = getOverview(dados);
   const totalClassificados = info.distribuicao.alto + info.distribuicao.medio + info.distribuicao.baixo + info.distribuicao.outros;
 
   return (
     <main className="nexuslens-main" aria-labelledby="nl-dashboard-title">
       <section className="nl-overview-heading">
-        <div><span className="nl-overview-eyebrow">MONITORAMENTO FINANCEIRO · DEMONSTRAÇÃO</span>
+        <div><span className="nl-overview-eyebrow">MONITORAMENTO FINANCEIRO · IBM AML-DATA</span>
           <h1 id="nl-dashboard-title">VISÃO GERAL DE RISCO</h1>
           <p>Um panorama da rede e das contas que merecem uma revisão mais detalhada.</p></div>
         <button type="button" className="nl-overview-refresh" disabled={carregando} onClick={recarregar}><span aria-hidden="true">↻</span> {carregando ? 'Atualizando...' : 'Atualizar dados'}</button>
       </section>
 
+      <DatasetNotice unavailable={indisponivel} status={situacao}/>
       {carregando && <div className="nl-overview-notice" role="status">Carregando métricas do backend...</div>}
       {erro && <div className="nl-overview-notice nl-overview-notice--error" role="alert">{erro} <button type="button" onClick={recarregar}>Tentar novamente</button></div>}
 
       <section className="nl-overview-stats" aria-label="Resumo da rede financeira">
-        <Stat label="Transações mapeadas" value={dados ? info.transacoes.toLocaleString('pt-BR') : '—'} hint="Conexões financeiras" icon="⇄" />
-        <Stat label="Contas analisadas" value={dados ? info.contas.toLocaleString('pt-BR') : '—'} hint="Participantes da rede" icon="◎" />
+        <Stat label="Transações no recorte" value={dados ? info.transacoes.toLocaleString('pt-BR') : '—'} hint="Até 1.500 movimentações IBM" icon="⇄" />
+        <Stat label="Contas analisadas" value={dados ? info.contas.toLocaleString('pt-BR') : '—'} hint="No recorte analisado" icon="◎" />
         <Stat label="Score estrutural" value={info.score ?? '—'} hint="Escala heurística de 0 a 100" icon="◉" />
         <Stat label="Contas para revisão" value={dados ? info.revisao : '—'} hint="Classificação média ou alta" icon="◇" />
       </section>
@@ -54,7 +56,7 @@ export default function Dashboard({ onNavigate }) {
               <button type="button" onClick={() => onNavigate('network')}>Explorar conexões <span aria-hidden="true">↗</span></button>
             </div>
           </div>
-          <p className="nl-panel-footnote">O score descreve características da rede. Não representa probabilidade de fraude.</p>
+          <p className="nl-panel-footnote">Score heurístico do recorte IBM, não probabilidade de fraude.</p>
         </article>
         <article className="nl-overview-panel">
           <div className="nl-panel-head"><div><span className="nl-panel-kicker">PERFIL DA REDE</span><h2>Distribuição por classificação</h2></div><span className="nl-panel-caption">{dados ? info.contas : '—'} contas</span></div>
@@ -67,7 +69,7 @@ export default function Dashboard({ onNavigate }) {
               </div>
             ))}
           </div>
-          <div className="nl-panel-tip">Para mostrar tendências ao longo do tempo, será necessário importar transações com datas e horários.</div>
+          <div className="nl-panel-tip">O dataset IBM contém datas; análises temporais agregadas serão incluídas em uma próxima etapa.</div>
         </article>
       </section>
 
@@ -87,7 +89,7 @@ export default function Dashboard({ onNavigate }) {
           </table></div>
         ) : <div className="nl-overview-empty">{carregando ? 'Carregando contas...' : erro ? 'Dados indisponíveis.' : 'Nenhuma conta classificada para revisão neste conjunto.'}</div>}
       </section>
-      <div className="nl-overview-bottom-note"><span>◈</span> Os dados usados neste ambiente são demonstrativos. Sinais estruturais exigem validação humana.</div>
+      <div className="nl-overview-bottom-note"><span>◈</span> IBM AML-Data · simulação financeira em USD. As métricas pertencem ao recorte importado e exigem validação humana.</div>
     </main>
   );
 }

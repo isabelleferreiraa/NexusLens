@@ -1,0 +1,6 @@
+/* Paginação do IBM AML-Data (somente transações da página são filtradas). */
+.nl-tx-pagination{display:flex;align-items:center;justify-content:flex-end;gap:14px;margin-top:16px;color:#617d90;font:600 11px var(--font-ui)}
+.nl-tx-pagination button{border:1px solid #d9e5ec;border-radius:9px;background:#f5f8fa;padding:10px 13px;color:#506e81;font:700 11px var(--font-ui)}
+.nl-tx-pagination button:hover:not(:disabled){background:#e9f0f5}
+.nl-tx-pagination button:disabled{opacity:.45;cursor:not-allowed}
+@media(max-width:580px){.nl-tx-pagination{justify-content:space-between;gap:6px}.nl-tx-pagination button{padding:8px;font-size:10px}}

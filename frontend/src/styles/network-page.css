@@ -1,0 +1,19 @@
+/* Rede Financeira: canvas amplo e métricas abaixo */
+.nl-feature-page--network{max-width:1600px}
+.nl-feature-page--network .nl-feature-heading p{max-width:620px;line-height:1.7}
+.nl-network-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:20px}
+.nl-network-summary>div{display:flex;flex-direction:column;gap:8px;min-width:0;background:#fff;border:1px solid #e0e8ee;border-radius:13px;padding:17px 21px;box-shadow:0 4px 20px #243b4d08}
+.nl-network-summary span{color:#8397a5;letter-spacing:1px;font:700 9px var(--font-ui)}
+.nl-network-summary strong{font:750 27px/1.2 var(--font-body);color:#263c4d;letter-spacing:-.75px}
+.nl-network-summary strong small{font-size:13px;color:#879cac;font-weight:500}
+.nl-network-summary div>small{color:#93a3ae;font:400 10px var(--font-body)}
+.nl-feature-page--network .nl-feature-network{display:block}
+.nl-feature-page--network .nl-feature-network .nx-graph-container{height:auto;min-height:0;border-radius:16px;padding:0}
+.nl-feature-page--network .nl-feature-network .nx-graph-shell,
+.nl-feature-page--network .nl-feature-network .nx-graph-wrapper{height:610px;min-height:610px}
+.nl-feature-metrics{margin-top:25px}
+.nl-feature-metrics-heading{margin-bottom:14px}
+.nl-feature-metrics-heading h2{font:700 16px var(--font-ui);color:#2e4656;margin-top:7px}
+.nl-feature-metrics .nx-metrics-panel{height:auto;min-height:0;border-radius:14px}
+@media(max-width:850px){.nl-feature-page--network .nl-feature-network .nx-graph-shell,.nl-feature-page--network .nl-feature-network .nx-graph-wrapper{height:520px;min-height:520px}}
+@media(max-width:680px){.nl-network-summary{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.nl-network-summary>div{padding:13px 10px}.nl-network-summary strong{font-size:20px}.nl-network-summary span{font-size:8px}.nl-feature-page--network .nl-feature-network .nx-graph-shell,.nl-feature-page--network .nl-feature-network .nx-graph-wrapper{height:480px;min-height:480px}}

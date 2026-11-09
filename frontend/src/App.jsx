@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import Sidebar from './components/layout/Sidebar';
 import Dashboard from './pages/Dashboard';
 import TransactionsPage from './pages/TransactionsPage';
+import AlertsPage from './pages/AlertsPage';
 import NetworkPage from './pages/NetworkPage';
 import NexusAIPage from './pages/NexusAIPage';
 import { pages, pageFromPath } from './routes';
@@ -56,11 +57,12 @@ function App() {
             </button>
             <div className="nl-breadcrumb">Workspace <span aria-hidden="true">/</span> <strong>{current?.title ?? 'Página não encontrada'}</strong></div>
           </div>
-          <div className="nl-topbar-end"><span className="nl-demo-label">AMBIENTE DEMONSTRATIVO</span><span className="nl-demo-avatar" aria-label="Modo demonstração">NL</span></div>
+          <div className="nl-topbar-end"><span className="nl-demo-label">IBM AML-DATA · SINTÉTICO · USD</span><span className="nl-demo-avatar" aria-label="Modo demonstração">NL</span></div>
         </header>
         <div id="conteudo-principal" className="nl-page" tabIndex={-1}>
           {activePage === 'overview' ? <Dashboard onNavigate={navigate}/> :
           activePage === 'transactions' ? <TransactionsPage onNavigate={navigate}/> :
+          activePage === 'alerts' ? <AlertsPage onNavigate={navigate}/> :
           activePage === 'network' ? <NetworkPage/> :
           activePage === 'ai' ? <NexusAIPage/> : (
             <main className="nl-placeholder" aria-labelledby="nl-placeholder-title">
@@ -70,7 +72,7 @@ function App() {
               <section className="nl-placeholder-card">
                 <span className="nl-placeholder-icon" aria-hidden="true">◇</span>
                 <h2>{current ? 'Esta página vem na próxima etapa.' : 'Vamos voltar ao início?'}</h2>
-                <p>{current ? 'Estamos preparando esta funcionalidade. Os serviços existentes continuam acessíveis na Rede financeira e no Nexus AI.' : 'Use o botão abaixo para retornar à Visão Geral.'}</p>
+                <p>{current ? 'Esta funcionalidade será desenvolvida sobre os dados sintéticos da IBM AML-Data.' : 'Use o botão abaixo para retornar à Visão Geral.'}</p>
                 <button type="button" className="nl-back-button" onClick={() => navigate('overview')}>Voltar à visão geral</button>
               </section>
             </main>

@@ -43,8 +43,8 @@ export default function TransactionDetailsDrawer({ transacao, onClose, onNetwork
       </div>
       <div className="nl-tx-drawer-body">
         <div className="nl-tx-amount">
-          <small>VALOR TRANSFERIDO</small>
-          <strong>{formatarMoeda(transacao.valor)}</strong>
+          <small>VALOR TRANSFERIDO ({transacao.moeda})</small>
+          <strong>{formatarMoeda(transacao.valor, transacao.moeda)}</strong>
         </div>
         <div className="nl-tx-drawer-section">
           <h3>Origem</h3>

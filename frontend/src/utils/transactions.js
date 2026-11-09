@@ -5,19 +5,22 @@ export function normalizarTransacoes(transacoes = [], nos = []) {
   return transacoes.map((registro, indice) => {
     const origem = text(registro.origem ?? registro.id_cliente_origem);
     const destino = text(registro.destino ?? registro.id_cliente_destino);
-    if (!origem || !destino) return null;
     const numero = Number(registro.valor);
     const valor = registro.valor === null || registro.valor === undefined || registro.valor === '' || !Number.isFinite(numero) ? null : numero;
-    const identificador = text(registro.id ?? registro.id_transacao) || null;
+    if (!origem || !destino) return null;
+    const idReal = text(registro.id ?? registro.id_transacao);
     const dataBruta = text(registro.data_transacao ?? registro.data);
     const data = /^\d{4}-\d{2}-\d{2}/.test(dataBruta) ? dataBruta : null;
-    const tipo = text(registro.tipo_transacao ?? registro.tipo) || null;
+    const tipo = text(registro.tipo_transacao ?? registro.tipo);
+    const moeda = text(registro.moeda) || 'USD';
     return {
-      chave: identificador || `registro-${indice + 1}`,
-      identificador, indice: indice + 1, origem, destino,
+      chave: idReal || `registro-${indice + 1}`,
+      identificador: idReal || null,
+      indice: indice + 1,
+      origem, destino,
       nomeOrigem: nomes.get(origem) || null,
       nomeDestino: nomes.get(destino) || null,
-      valor, data, tipo,
+      valor, data, tipo: tipo || null, moeda,
     };
   }).filter(Boolean);
 }
@@ -40,22 +43,22 @@ export function filtrarTransacoes(transacoes, filtros = {}) {
   const min = filtros.min === '' || filtros.min === undefined ? null : Number(filtros.min);
   const max = filtros.max === '' || filtros.max === undefined ? null : Number(filtros.max);
   return transacoes.filter((t) => {
-    if (busca && ![t.nomeOrigem, t.nomeDestino, t.origem, t.destino, t.identificador, `registro ${t.indice}`].some((v) => text(v).toLocaleLowerCase('pt-BR').includes(busca))) return false;
+    if (busca && ![t.nomeOrigem,t.nomeDestino,t.origem,t.destino,t.identificador,`registro ${t.indice}`].some((v) => text(v).toLocaleLowerCase('pt-BR').includes(busca))) return false;
     if (min !== null && Number.isFinite(min) && (t.valor === null || t.valor < min)) return false;
     if (max !== null && Number.isFinite(max) && (t.valor === null || t.valor > max)) return false;
-    if (filtros.de && (!t.data || t.data.slice(0, 10) < filtros.de)) return false;
-    if (filtros.ate && (!t.data || t.data.slice(0, 10) > filtros.ate)) return false;
+    if (filtros.de && (!t.data || t.data.slice(0,10) < filtros.de)) return false;
+    if (filtros.ate && (!t.data || t.data.slice(0,10) > filtros.ate)) return false;
     return true;
-  }).sort((a, b) => {
-    if (filtros.ordenacao === 'valor-asc') return (a.valor ?? -Infinity) - (b.valor ?? -Infinity);
-    if (filtros.ordenacao === 'recentes') return (b.data || '').localeCompare(a.data || '') || a.indice - b.indice;
-    return (b.valor ?? -Infinity) - (a.valor ?? -Infinity);
+  }).sort((a,b) => {
+    if (filtros.ordenacao === 'valor-asc') return (a.valor ?? -Infinity)-(b.valor ?? -Infinity);
+    if (filtros.ordenacao === 'recentes') return (b.data || '').localeCompare(a.data || '') || a.indice-b.indice;
+    return (b.valor ?? -Infinity)-(a.valor ?? -Infinity);
   });
 }
 
-export function formatarMoeda(valor) {
+export function formatarMoeda(valor, moeda = 'USD') {
   return typeof valor === 'number' && Number.isFinite(valor)
-    ? new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(valor)
+    ? new Intl.NumberFormat('pt-BR',{style:'currency',currency:moeda}).format(valor)
     : 'Não informado';
 }
 

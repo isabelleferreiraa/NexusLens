@@ -20,11 +20,16 @@ from app.services.resumo_service import gerar_resumo
 # IA
 from app.ai.ia_service import IAService
 
+# Dataset IBM AML-Data (somente leitura)
+from app.routers.ibm_aml import router as ibm_aml_router
+
 app = FastAPI(
     title="NexusLens API",
     version="1.0.0",
     description="Plataforma de análise de grafos com IA."
 )
+
+app.include_router(ibm_aml_router)
 
 # ===========================
 # CORS (CORRIGIDO)
