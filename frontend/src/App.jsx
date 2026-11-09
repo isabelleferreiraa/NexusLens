@@ -5,6 +5,7 @@ import TransactionsPage from './pages/TransactionsPage';
 import AlertsPage from './pages/AlertsPage';
 import NetworkPage from './pages/NetworkPage';
 import NexusAIPage from './pages/NexusAIPage';
+import InvestigationsPage from './pages/InvestigationsPage';
 import { pages, pageFromPath } from './routes';
 import './styles/app-shell.css';
 
@@ -64,6 +65,7 @@ function App() {
           activePage === 'transactions' ? <TransactionsPage onNavigate={navigate}/> :
           activePage === 'alerts' ? <AlertsPage onNavigate={navigate}/> :
           activePage === 'network' ? <NetworkPage/> :
+          activePage === 'cases' ? <InvestigationsPage onNavigate={navigate}/> :
           activePage === 'ai' ? <NexusAIPage/> : (
             <main className="nl-placeholder" aria-labelledby="nl-placeholder-title">
               <span className="nl-eyebrow">NEXUSLENS 2.0 / {current ? 'EM DESENVOLVIMENTO' : 'NÃO ENCONTRADA'}</span>
