@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Depends, Body
+from fastapi import FastAPI, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 
@@ -18,7 +18,8 @@ from app.services.score_service import calcular_score
 from app.services.resumo_service import gerar_resumo
 
 # IA
-from app.ai.ia_service import IAService
+from app.ai.ia_service import IAService, RelatorioIndisponivel
+from app.schemas.relatorio import RelatorioRequest
 
 # Dataset IBM AML-Data (somente leitura)
 from app.routers.ibm_aml import router as ibm_aml_router
@@ -173,7 +174,10 @@ def obter_grafo(db: Session = Depends(get_db)):
 
 
 @app.post("/relatorio")
-def gerar_relatorio(dados: dict = Body(...)):
+def gerar_relatorio(dados: RelatorioRequest):
+
+    # Validação Pydantic: solicitações incompletas retornam HTTP 422, sem KeyError.
+    dados = dados.model_dump()
 
     resumo = gerar_resumo(
         {
@@ -191,7 +195,10 @@ def gerar_relatorio(dados: dict = Body(...)):
 
     ia = IAService()
 
-    relatorio = ia.gerar_relatorio(resumo)
+    try:
+        relatorio = ia.gerar_relatorio(resumo)
+    except RelatorioIndisponivel as exc:
+        raise HTTPException(status_code=503, detail="Não foi possível gerar o parecer neste momento. Tente novamente.") from exc
 
     return {
         "relatorio": relatorio

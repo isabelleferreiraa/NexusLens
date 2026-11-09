@@ -6,6 +6,7 @@ import AlertsPage from './pages/AlertsPage';
 import NetworkPage from './pages/NetworkPage';
 import NexusAIPage from './pages/NexusAIPage';
 import InvestigationsPage from './pages/InvestigationsPage';
+import ReportsPage from './pages/ReportsPage';
 import { pages, pageFromPath } from './routes';
 import './styles/app-shell.css';
 
@@ -24,9 +25,7 @@ function App() {
 
   useEffect(() => {
     if (!mobileOpen) return;
-    function handleEscape(event) {
-      if (event.key === 'Escape') setMobileOpen(false);
-    }
+    function handleEscape(event) { if (event.key === 'Escape') setMobileOpen(false); }
     window.addEventListener('keydown', handleEscape);
     return () => window.removeEventListener('keydown', handleEscape);
   }, [mobileOpen]);
@@ -39,34 +38,26 @@ function App() {
     window.scrollTo({ top: 0, behavior: 'auto' });
   }
 
-  return (
-    <div className={'nl-app ' + (collapsed ? 'nl-app--collapsed' : '')}>
-      <a className="nl-skip" href="#conteudo-principal">Pular para o conteúdo</a>
-      <Sidebar
-        activePage={activePage}
-        onNavigate={navigate}
-        collapsed={collapsed}
-        onToggleCollapse={() => setCollapsed((value) => !value)}
-        mobileOpen={mobileOpen}
-        onCloseMobile={() => setMobileOpen(false)}
-      />
-      <div className="nl-content">
-        <header className="nl-topbar">
-          <div className="nl-topbar-start">
-            <button type="button" className="nl-mobile-menu-button" aria-label="Abrir menu" aria-expanded={mobileOpen} onClick={() => setMobileOpen(true)}>
-              <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
-            </button>
-            <div className="nl-breadcrumb">Workspace <span aria-hidden="true">/</span> <strong>{current?.title ?? 'Página não encontrada'}</strong></div>
-          </div>
-          <div className="nl-topbar-end"><span className="nl-demo-label">IBM AML-DATA · SINTÉTICO · USD</span><span className="nl-demo-avatar" aria-label="Modo demonstração">NL</span></div>
-        </header>
-        <div id="conteudo-principal" className="nl-page" tabIndex={-1}>
-          {activePage === 'overview' ? <Dashboard onNavigate={navigate}/> :
+  return <div className={'nl-app ' + (collapsed ? 'nl-app--collapsed' : '')}>
+    <a className="nl-skip" href="#conteudo-principal">Pular para o conteúdo</a>
+    <Sidebar activePage={activePage} onNavigate={navigate} collapsed={collapsed}
+      onToggleCollapse={() => setCollapsed((value) => !value)} mobileOpen={mobileOpen}
+      onCloseMobile={() => setMobileOpen(false)} />
+    <div className="nl-content">
+      <header className="nl-topbar">
+        <div className="nl-topbar-start"><button type="button" className="nl-mobile-menu-button" aria-label="Abrir menu" aria-expanded={mobileOpen} onClick={() => setMobileOpen(true)}>
+          <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
+        </button><div className="nl-breadcrumb">Workspace <span aria-hidden="true">/</span> <strong>{current?.title ?? 'Página não encontrada'}</strong></div></div>
+        <div className="nl-topbar-end"><span className="nl-demo-label">IBM AML-DATA · SINTÉTICO · USD</span><span className="nl-demo-avatar" aria-label="Modo demonstração">NL</span></div>
+      </header>
+      <div id="conteudo-principal" className="nl-page" tabIndex={-1}>
+        {activePage === 'overview' ? <Dashboard onNavigate={navigate}/> :
           activePage === 'transactions' ? <TransactionsPage onNavigate={navigate}/> :
           activePage === 'alerts' ? <AlertsPage onNavigate={navigate}/> :
           activePage === 'network' ? <NetworkPage/> :
           activePage === 'cases' ? <InvestigationsPage onNavigate={navigate}/> :
-          activePage === 'ai' ? <NexusAIPage/> : (
+          activePage === 'ai' ? <NexusAIPage onNavigate={navigate}/> :
+          activePage === 'reports' ? <ReportsPage onNavigate={navigate}/> : (
             <main className="nl-placeholder" aria-labelledby="nl-placeholder-title">
               <span className="nl-eyebrow">NEXUSLENS 2.0 / {current ? 'EM DESENVOLVIMENTO' : 'NÃO ENCONTRADA'}</span>
               <h1 id="nl-placeholder-title">{current?.title ?? 'Página não encontrada'}</h1>
@@ -79,10 +70,9 @@ function App() {
               </section>
             </main>
           )}
-        </div>
       </div>
     </div>
-  );
+  </div>;
 }
 
 export default App;
