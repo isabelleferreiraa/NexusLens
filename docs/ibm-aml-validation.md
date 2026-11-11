@@ -51,7 +51,20 @@ Substitua por uma URL HTTPS da API de prévia, após implantação. Códigos de 
 
 1. Baixar `HI-Small_Trans.csv` na [origem da IBM](https://github.com/IBM/AML-Data), mantendo o CSV fora do Git.
 2. Executar o importador com *dry-run*, conferir o relatório e aprovar a importação em PostgreSQL de **desenvolvimento**.
-3. Testar os endpoints e as quatro páginas de análise, além do Nexus AI.
+3. Testar os endpoints e as páginas que dependem do dataset IBM, além do Nexus AI.
 4. Só após revisão, aprovar aplicação ao banco de produção e implantação Render/Vercel.
 
 O dataset IBM é **100% sintético**, com licença de dados distinta da licença do código.
+
+## Diagnóstico Neon — 11/11/2026 (consulta somente leitura)
+
+Foi feita uma conferência direta no projeto **nexuslens** do Neon, sem executar escrita ou importação:
+
+| Branch Neon | Tabelas IBM | Registros verificados |
+| --- | --- | --- |
+| `dev-ibm-aml` | `ibm_aml_accounts` e `ibm_aml_transactions` presentes | **0 contas e 0 transações** |
+| `production` | Tabelas IBM ausentes | Não há tabelas IBM para consultar |
+
+Na branch de desenvolvimento, as tabelas contêm as colunas, chaves e índices necessários à estrutura de importação, mas **o esquema vazio não é uma importação validada**. Esta é uma observação pontual na data acima e pode mudar após operações futuras.
+
+**Próxima sequência:** obter e validar o CSV oficial fora do Git; executar o `dry-run`; revisar amostra e confirmar permissão para importar **somente em desenvolvimento**; testar endpoints e telas; solicitar autorização específica antes de qualquer migração/importação no Neon de produção. Commits, PRs e deploys não devem importar dados automaticamente.

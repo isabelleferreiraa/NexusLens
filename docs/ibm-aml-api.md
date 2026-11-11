@@ -1,14 +1,15 @@
 # IBM AML-Data — leitura isolada da API
 
-**Status:** código preparado para revisão, ainda não publicado ou conectado ao frontend.
+**Status:** rotas IBM e interface 2.0 integradas ao código principal. Isso não confirma que o CSV esteja importado no banco conectado ao deploy.
 
-A integração adiciona três endpoints REST opcionais, sem modificar os já existentes:
+A integração disponibiliza quatro endpoints REST de leitura, sem modificar os já existentes:
 
 | Método | Endpoint | Função |
 |---|---|---|
 | `GET` | `/datasets/ibm-aml/status` | Mostra se as tabelas foram importadas e quantos registros existem. Não cria tabelas. |
 | `GET` | `/datasets/ibm-aml/transacoes?limit=100&offset=0` | Lista até 200 transações por página. Ordenação estável por data/ID. |
 | `GET` | `/datasets/ibm-aml/grafo?limit=1500` | Grafo de até 1.500 transações com métricas e classificações calculadas pelo NexusLens. |
+| `GET` | `/datasets/ibm-aml/alertas` | Sinais de padrões definidos por regras sobre o recorte sintético, sem diagnóstico de fraude. |
 
 ## Proteções importantes
 
@@ -22,14 +23,12 @@ A integração adiciona três endpoints REST opcionais, sem modificar os já exi
 - Para proteger o projeto atual, `/grafo`, `/transacoes`, `/clientes` e `/relatorio` **não são alterados**.
 - Classificações atuais são **heurísticas** e não comprovam fraude. Para análise científica, usar amostra não enriquecida e avaliação separada, conforme `docs/ibm-aml.md`.
 
-## Antes de colocar no ar
+## Validação da implantação
 
-1. Revisar/aprovar o código e registrar o commit na `feat/nexuslens-v2`.
-2. Instalar dependências do backend e testar as rotas localmente.
-3. **Em ambiente de desenvolvimento**, importar uma amostra do `HI-Small_Trans.csv` após aprovação (documentado em `docs/ibm-aml.md`).
-4. Testar `GET /datasets/ibm-aml/status`, depois as transações e o grafo.
-5. Em outro commit, construir o **seletor de fonte de dados** no React, incluindo moeda correta e estados de dataset indisponível.
-6. Somente depois avaliar implantação no Render/Neon de produção e mesclagem na `main`, sempre com autorização explícita.
+1. Preparar e testar amostra IBM em PostgreSQL de desenvolvimento, seguindo docs/ibm-aml-quickstart.md.
+2. Verificar status, transações, grafo e alertas usando dados efetivamente importados.
+3. Validar a interface e o Nexus AI com API de desenvolvimento.
+4. Somente com autorização, importar amostra na conexão de produção e conferir Render/Neon/Vercel. O deploy de código **não** importa dados automaticamente.
 
 ## Testes automatizados
 
