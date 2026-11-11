@@ -7,12 +7,19 @@ import NetworkPage from './pages/NetworkPage';
 import NexusAIPage from './pages/NexusAIPage';
 import InvestigationsPage from './pages/InvestigationsPage';
 import ReportsPage from './pages/ReportsPage';
+import SettingsPage from './pages/SettingsPage';
+import { readUiPreferences, saveUiPreferences } from './utils/uiPreferences';
 import { pages, pageFromPath } from './routes';
 import './styles/app-shell.css';
 
+function browserStorage() {
+  try { return window.localStorage; } catch { return null; }
+}
+
 function App() {
   const [activePage, setActivePage] = useState(() => pageFromPath(window.location.pathname));
-  const [collapsed, setCollapsed] = useState(false);
+  const [preferences, setPreferences] = useState(() => readUiPreferences(browserStorage()));
+  const collapsed = preferences.sidebarCollapsed;
   const [mobileOpen, setMobileOpen] = useState(false);
   const current = pages[activePage];
 
@@ -30,6 +37,17 @@ function App() {
     return () => window.removeEventListener('keydown', handleEscape);
   }, [mobileOpen]);
 
+  useEffect(() => {
+    document.documentElement.classList.toggle('nl-reduced-motion', preferences.reduceMotion);
+    return () => document.documentElement.classList.remove('nl-reduced-motion');
+  }, [preferences.reduceMotion]);
+
+  function updatePreferences(next) {
+    const saved = saveUiPreferences(browserStorage(), next);
+    setPreferences(next);
+    return saved;
+  }
+
   function navigate(page) {
     if (!pages[page]) return;
     if (window.location.pathname !== pages[page].path) window.history.pushState({}, '', pages[page].path);
@@ -41,7 +59,7 @@ function App() {
   return <div className={'nl-app ' + (collapsed ? 'nl-app--collapsed' : '')}>
     <a className="nl-skip" href="#conteudo-principal">Pular para o conteúdo</a>
     <Sidebar activePage={activePage} onNavigate={navigate} collapsed={collapsed}
-      onToggleCollapse={() => setCollapsed((value) => !value)} mobileOpen={mobileOpen}
+      onToggleCollapse={() => updatePreferences({ ...preferences, sidebarCollapsed: !collapsed })} mobileOpen={mobileOpen}
       onCloseMobile={() => setMobileOpen(false)} />
     <div className="nl-content">
       <header className="nl-topbar">
@@ -57,7 +75,8 @@ function App() {
           activePage === 'network' ? <NetworkPage/> :
           activePage === 'cases' ? <InvestigationsPage onNavigate={navigate}/> :
           activePage === 'ai' ? <NexusAIPage onNavigate={navigate}/> :
-          activePage === 'reports' ? <ReportsPage onNavigate={navigate}/> : (
+          activePage === 'reports' ? <ReportsPage onNavigate={navigate}/> :
+          activePage === 'settings' ? <SettingsPage preferences={preferences} onChange={updatePreferences} onNavigate={navigate}/> : (
             <main className="nl-placeholder" aria-labelledby="nl-placeholder-title">
               <span className="nl-eyebrow">NEXUSLENS 2.0 / {current ? 'EM DESENVOLVIMENTO' : 'NÃO ENCONTRADA'}</span>
               <h1 id="nl-placeholder-title">{current?.title ?? 'Página não encontrada'}</h1>
