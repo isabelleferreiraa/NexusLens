@@ -109,3 +109,20 @@
 .nl-inv-save-message{color:#4e7c68;font:700 11px var(--font-body)}
 @media(max-width:950px){.nl-inv-case-board{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:620px){.nl-inv-case-board{grid-template-columns:1fr}.nl-inv-case-filters{grid-template-columns:1fr}.nl-inv-section-intro{flex-direction:column;align-items:flex-start}.nl-inv-row-actions{flex-direction:column}}
+/* Cartões, filtros e ações acessíveis sem overflow em telas pequenas. */
+.nl-inv-table-wrap{overscroll-behavior-inline:contain}
+.nl-inv-case-card{min-width:0}
+.nl-inv-case-card .nl-inv-card-open strong{overflow-wrap:anywhere}
+.nl-inv-panel footer{flex-wrap:wrap}
+.nl-inv-drawer{overscroll-behavior:contain}
+.nl-inv-status-select{min-width:0}
+@media(max-width:620px){
+  .nl-inv-view-toggle{max-width:100%;flex-wrap:wrap}
+  .nl-inv-row-actions{align-items:stretch}
+  .nl-inv-row-actions button{width:100%}
+}
+@media(max-width:420px){
+  .nl-inv-summary article{padding:12px 10px}
+  .nl-inv-summary strong{font-size:22px}
+  .nl-inv-drawer .nl-inv-facts{grid-template-columns:1fr}
+}

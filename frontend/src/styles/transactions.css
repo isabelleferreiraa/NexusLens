@@ -75,3 +75,16 @@
 @keyframes nl-slide-in{from{transform:translateX(20px);opacity:.3}to{transform:translateX(0);opacity:1}}
 @media(max-width:600px){.nl-tx-drawer-header,.nl-tx-drawer-body{padding:19px 17px}}
 @media(prefers-reduced-motion:reduce){.nl-tx-drawer{animation:none}}
+/* Filtros e ações sem cortes em telas pequenas; tabela continua rolável. */
+.nl-tx-table-scroll{overscroll-behavior-inline:contain}
+@media(max-width:600px){
+  .nl-tx-panel-head,.nl-tx-footer{flex-wrap:wrap}
+  .nl-tx-date-filters{flex-wrap:wrap;gap:9px}
+  .nl-tx-date-filters .nl-tx-field{flex:1 1 145px;width:auto;min-width:0}
+}
+@media(max-width:420px){
+  .nl-tx-filters{grid-template-columns:1fr}
+  .nl-tx-heading .nl-tx-refresh{width:100%}
+  .nl-tx-drawer-grid{grid-template-columns:1fr}
+  .nl-tx-amount strong{font-size:27px;overflow-wrap:anywhere}
+}
