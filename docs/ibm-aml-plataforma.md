@@ -44,7 +44,7 @@ Amostras são demonstrativas e, pelo importador atual, enriquecidas com transaç
    - `GET /datasets/ibm-aml/grafo?limit=200` → contas, arestas e métricas sem rótulos `Is Laundering`.
 
 6. No frontend, rode `npm ci`, `npm run lint`, `npm run build`, `npm run dev`. A API é acessada pelo proxy `/api` já existente.
-7. Somente depois da validação em desenvolvimento, solicitar autorização para importar no PostgreSQL conectado ao Render e integrar a branch à `main`. Não executar importação de produção automaticamente.
+7. Depois da validação em desenvolvimento, solicitar autorização específica para importar no PostgreSQL conectado ao Render e conferir a implantação existente. A integração de código já está na `main`; não executar importação de produção automaticamente.
 
 **Se o CSV não estiver importado:** Visão Geral, Transações, Rede Financeira, Alertas e Nexus AI mostram estado de indisponibilidade/erro, sem números falsos ou fallback para a base antiga.
 

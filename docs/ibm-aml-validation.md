@@ -51,7 +51,7 @@ Substitua por uma URL HTTPS da API de prévia, após implantação. Códigos de 
 
 1. Baixar `HI-Small_Trans.csv` na [origem da IBM](https://github.com/IBM/AML-Data), mantendo o CSV fora do Git.
 2. Executar o importador com *dry-run*, conferir o relatório e aprovar a importação em PostgreSQL de **desenvolvimento**.
-3. Testar os endpoints e as quatro páginas de análise, além do Nexus AI.
+3. Testar os endpoints e as páginas que dependem do dataset IBM, além do Nexus AI.
 4. Só após revisão, aprovar aplicação ao banco de produção e implantação Render/Vercel.
 
 O dataset IBM é **100% sintético**, com licença de dados distinta da licença do código.
