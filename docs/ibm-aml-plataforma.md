@@ -1,6 +1,6 @@
 # NexusLens 2.0 — IBM AML-Data como fonte principal
 
-**Estado desta alteração:** código de frontend preparado para revisão. Não foi enviado ao GitHub, nem publicado no Render/Vercel. O conjunto de dados ainda não foi importado no PostgreSQL.
+**Estado atual:** integração de código IBM e páginas do NexusLens 2.0 incluídas na branch principal. A existência dos dados IBM no banco de produção **não foi verificada** por este documento.
 
 ## Decisão de produto
 
@@ -9,9 +9,9 @@ O IBM AML-Data HI-Small passa a ser a **única fonte exposta pela interface**. N
 - **Visão Geral:** `/datasets/ibm-aml/grafo`, indicadores referentes a um **recorte** de até 1.500 transações.
 - **Transações:** `/datasets/ibm-aml/transacoes`, com paginação de até 200 transações, datas, tipo, contas e valores explicitamente em **USD**. Filtros e ordenação atuam sobre a página atual.
 - **Rede Financeira:** grafo com bolinhas azuis arrastáveis, dados e classificação produzidos pela API IBM e volume em **USD**.
-- **Alertas:** conta classificada como alta ou média pelas heurísticas do NexusLens, **não** pelo rótulo de lavagem do simulador. Ainda não há alertas independentes persistidos.
+- **Alertas:** sinais gerados por regras sobre padrões de movimentação; não são conclusões de fraude nem rótulos de lavagem do simulador. Não são persistidos no servidor.
 - **Nexus AI:** usa as métricas retornadas pelo grafo IBM e envia esses números para o endpoint de relatório `/relatorio`. O **Gemini apenas escreve o parecer**; não identifica contas nem executa investigações.
-- **Relatórios, Investigações e Configurações:** ainda são páginas planejadas; quando implementadas, deverão usar o mesmo contexto IBM. Não afirmar que já estão prontas.
+- **Relatórios, Investigações e Configurações:** telas implementadas; casos, pareceres e preferências ficam neste navegador, sem autenticação ou sincronização no servidor.
 
 ## Dados sintéticos e licença
 
@@ -53,7 +53,7 @@ Amostras são demonstrativas e, pelo importador atual, enriquecidas com transaç
 - API retorna recorte limitado para não sobrecarregar o Render e o navegador, não a totalidade do HI-Small. Seu score é **do recorte**.
 - Conexões repetidas podem gerar várias transações, embora métricas de grafo usem relações dirigidas únicas.
 - O frontend ainda não possui filtros de busca globais no servidor para as transações; filtros atuam por página.
-- A evolução das regras de detecção, Investigações e Histórico de Relatórios continua pendente.
+- Persistência autenticada em servidor, auditoria e avaliação independente das heurísticas continuam pendentes.
 - Para avaliar algoritmos com os rótulos IBM, separar um conjunto de teste não enriquecido e sem vazamento dos rótulos para as heurísticas.
 
 

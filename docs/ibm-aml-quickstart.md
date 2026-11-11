@@ -1,6 +1,6 @@
 # IBM AML-Data — colocar a amostra no NexusLens
 
-Esta etapa **ainda não foi executada no PostgreSQL de produção**. O download não acontece durante um deploy da Vercel ou do Render: ele deve ser feito em máquina com espaço disponível e acesso à internet. O dataset é **totalmente sintético** e não contém transações reais.
+**Não há validação documentada de que a amostra foi importada no PostgreSQL de produção.** O download não acontece durante um deploy da Vercel ou do Render: ele deve ser feito em máquina com espaço disponível e acesso à internet. O dataset é **totalmente sintético** e não contém transações reais.
 
 ## Caminho rápido (desenvolvimento, sem alterar a produção)
 
@@ -34,6 +34,6 @@ python backend/scripts/check_ibm_aml_api.py --base-url http://localhost:8000
 
 ## Para publicar
 
-Depois de validar os registros em desenvolvimento, é necessário autorização para importar uma amostra no PostgreSQL conectado ao Render, confirmar `/datasets/ibm-aml/status`, `/transacoes`, `/grafo` e `/alertas`, e só então considerar a PR pronta para mesclar na `main`. O código de download não faz nada automaticamente nem é acionado no deploy. **A PR deve continuar como rascunho até essa verificação.**
+Depois de validar os registros em desenvolvimento, é necessário autorização para importar uma amostra no PostgreSQL conectado ao Render, confirmar `/datasets/ibm-aml/status`, `/transacoes`, `/grafo` e `/alertas`, e só então considerar a PR pronta para mesclar na `main`. O código de download não faz nada automaticamente nem é acionado no deploy. **A integração do código já foi mesclada à branch principal; a importação e validação dos dados no ambiente publicado continuam etapas independentes e exigem aprovação.**
 
 Os dados IBM são publicados sob **CDLA-Sharing-1.0**, diferente da licença do código do projeto. Não versione o CSV bruto.

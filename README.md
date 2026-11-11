@@ -1,358 +1,130 @@
-# 🧠 NexusLens
+# NexusLens 2.0
 
-![Python](https://img.shields.io/badge/Python-3-blue)
-![FastAPI](https://img.shields.io/badge/FastAPI-Backend-009688)
-![React](https://img.shields.io/badge/React-Frontend-61DAFB)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-blue)
-![NetworkX](https://img.shields.io/badge/NetworkX-Graphs-orange)
-![Google Gemini](https://img.shields.io/badge/Google-Gemini-blueviolet)
-![Docker](https://img.shields.io/badge/Docker-Containerized-2496ED)
-![License](https://img.shields.io/badge/License-MIT-green)
+**Plataforma demonstrativa de análise de redes financeiras, padrões de movimentação e apoio à triagem com grafos e IA.**
 
-Plataforma inteligente para análise de redes financeiras utilizando Inteligência Artificial Generativa, Teoria dos Grafos e análise de redes, desenvolvida com FastAPI, React e PostgreSQL.
+O NexusLens combina **React**, **FastAPI**, **PostgreSQL**, **NetworkX** e **Google Gemini**. A interface 2.0 utiliza exclusivamente o **IBM AML-Data (HI-Small)**, um conjunto de transações **100% sintético**. A plataforma não acessa dados reais de clientes, não consulta Pix/MED e **não comprova fraude ou lavagem de dinheiro**.
 
----
+## Acessos
 
-# 📑 Sumário
+- Aplicação: https://nexuslens-frontend.vercel.app
+- API: https://nexuslens-api.onrender.com
+- Documentação Swagger: https://nexuslens-api.onrender.com/docs
 
-- Sobre o projeto
-- Funcionalidades
-- Tecnologias
-- Arquitetura
-- Como executar
-- Estrutura
-- Endpoints
-- Inteligência Artificial
-- Teoria dos Grafos
-- Resultados
-- Objetivo
-- Aprendizados
-- Melhorias futuras
+**Atenção:** ter o código publicado não garante que a amostra IBM tenha sido importada no PostgreSQL desta implantação. Quando indisponível, a interface deve informar essa condição, sem substituir o dataset por registros antigos.
 
----
+## Funcionalidades do NexusLens 2.0
 
-# 📌 Sobre o projeto
+| Tela | O que oferece |
+| --- | --- |
+| **Visão geral** | Indicadores e panorama de um recorte do grafo IBM |
+| **Transações** | Consulta paginada de movimentações em USD, com filtros locais à página e detalhes |
+| **Alertas** | Sinais de padrões definidos por regras de movimentação, para revisão humana |
+| **Rede financeira** | Grafo interativo e métricas estruturais calculadas no backend |
+| **Investigações** | Abertura e acompanhamento demonstrativo de casos em Kanban |
+| **Nexus AI** | Geração de pareceres textuais pelo Gemini a partir de métricas agregadas |
+| **Relatórios** | Histórico local de pareceres, busca, visualização e impressão/Salvar como PDF |
+| **Configurações** | Preferências de interface e consulta somente leitura do status da fonte IBM |
 
-O **NexusLens** é uma plataforma desenvolvida para auxiliar analistas financeiros na identificação de padrões de risco em redes de transações.
+As **Investigações** e o **Histórico de Relatórios** usam armazenamento local do navegador. Não há autenticação, sincronização entre dispositivos, trilha de auditoria em servidor ou armazenamento seguro de casos reais. A opção de PDF utiliza a impressão do navegador; não há exportação automática por serviço.
 
-O projeto combina **Teoria dos Grafos**, **Análise de Redes** e **Inteligência Artificial** para transformar dados financeiros em informações estratégicas, permitindo identificar possíveis comportamentos suspeitos e gerar recomendações automáticas.
+## Dados e interpretação
 
-Toda a análise é realizada a partir de uma rede de transações financeiras, onde os clientes são representados como nós e as transações como conexões entre eles.
+- Fonte: [IBM AML-Data](https://github.com/IBM/AML-Data), arquivo HI-Small_Trans.csv.
+- Moeda exibida pela plataforma: **USD**. Não misturar com reais nem somar transações de moedas diferentes.
+- O grafo trabalha com recorte limitado de transações, não com o conjunto completo do CSV.
+- Scores e níveis de risco são **heurísticos/estruturais**; não equivalem a probabilidade de fraude.
+- Os rótulos de lavagem do simulador não são utilizados como veredito pela interface.
+- O Gemini redige pareceres a partir de indicadores agregados; não recebe a lista de contas e transações.
+- Os dados IBM possuem licença **CDLA-Sharing-1.0**, distinta da licença MIT do código. Não incluir o CSV bruto no Git.
 
-Além da análise estrutural da rede, o sistema utiliza a API do **Google Gemini** para gerar relatórios inteligentes em linguagem natural.
+## Tecnologias
 
----
+| Camada | Tecnologia |
+| --- | --- |
+| Interface | React, Vite, React Flow, Axios |
+| API | Python, FastAPI, Pydantic, SQLAlchemy |
+| Análise de rede | NetworkX, métricas e regras heurísticas |
+| Armazenamento | PostgreSQL (incluindo Neon, conforme ambiente) |
+| IA textual | Google Gemini |
+| Infraestrutura | Vercel, Render, Docker Compose para PostgreSQL local |
+| Versionamento | Git e GitHub |
 
-## 🌐 Deploy
+## Executar localmente
 
-- **Frontend:** https://nexuslens-frontend.vercel.app
-- **API:** https://nexuslens-api.onrender.com
-- **Swagger:** https://nexuslens-api.onrender.com/docs
+Pré-requisitos: Python e Node.js compatíveis com as dependências do projeto, npm e uma conexão PostgreSQL de desenvolvimento. Não use credenciais de produção em arquivos versionados.
 
-> O dashboard permite visualizar métricas da rede financeira, o grafo de transações e relatórios inteligentes gerados por IA em tempo real.
+**1. Clonar:**
 
----
-
-# ✨ Funcionalidades
-
-A plataforma oferece as seguintes funcionalidades:
-
-- Construção de redes financeiras utilizando Teoria dos Grafos
-- Cálculo automático do Score de Risco
-- Classificação do nível de risco
-- Identificação da influência de clientes na rede
-- Geração automática de recomendações
-- Geração de relatórios inteligentes utilizando IA
-- Dashboard interativo para visualização dos resultados
-- API REST desenvolvida com FastAPI
-- Persistência dos dados em PostgreSQL
-
----
-
-## 🛠️ Tecnologias utilizadas
-
-| Tecnologia | Finalidade |
-|------------|------------|
-| Python 3 | Linguagem principal |
-| FastAPI | Desenvolvimento da API |
-| React | Interface da aplicação |
-| Axios | Comunicação Front-end / API |
-| SQLAlchemy | ORM |
-| PostgreSQL | Banco de dados |
-| NetworkX | Construção e análise dos grafos |
-| Google Gemini API | Geração dos relatórios inteligentes |
-| Docker | Containerização |
-| Render | Deploy do Back-end |
-| Vercel | Deploy do Front-end |
-| Git | Controle de versão |
-
----
-
-# 🏗️ Arquitetura
-
-```mermaid
-flowchart LR
-
-A[(PostgreSQL)]
-A --> B[FastAPI]
-
-B --> C[NetworkX]
-
-C --> D[Cálculo das Métricas]
-
-D --> E[Score de Risco]
-
-D --> F[Análise Estrutural]
-
-E --> G[Google Gemini]
-
-F --> G
-
-G --> H[React Dashboard]
-```
-
----
-
-# ⚙️ Como executar o projeto
-
-## 1. Clone o repositório
-
-```bash
+~~~bash
 git clone https://github.com/isabelleferreiraa/NexusLens.git
-```
-
-## 2. Entre na pasta do projeto
-
-```bash
 cd NexusLens
-```
+~~~
 
----
+**2. PostgreSQL local (opcional):**
 
-## 🐳 Opção 1 — Execução com Docker
+~~~bash
+docker compose up -d postgres
+~~~
 
-```bash
-docker compose up --build
-```
+O arquivo docker-compose.yml sobe **somente o PostgreSQL**. Ele não inicia automaticamente frontend ou API. Configure as variáveis DB_HOST, DB_PORT, DB_NAME, DB_USER e DB_PASSWORD para o backend, usando backend/.env.example como referência.
 
----
+**3. Backend:**
 
-## ▶️ Opção 2 — Execução Local
-
-### Backend
-
-```bash
+~~~bash
 cd backend
-
 python -m venv .venv
-```
-
-Ative o ambiente virtual.
-
-Instale as dependências.
-
-```bash
+# Ative o ambiente virtual conforme o seu sistema operacional.
 pip install -r requirements.txt
-```
-
-Execute a API.
-
-```bash
 uvicorn app.main:app --reload
-```
+~~~
 
----
+**4. Frontend (em outro terminal, na pasta raiz):**
 
-### Frontend
-
-```bash
+~~~bash
 cd frontend
-
-npm install
-
+npm ci
 npm run dev
-```
+~~~
 
----
+Por padrão, o Vite encaminha /api para a API publicada no Render. Para usar um backend local, configure **VITE_API_BASE_URL=http://localhost:8000** no ambiente do frontend. Verifique a configuração de CORS e nunca publique segredos.
 
-# 📂 Estrutura do projeto
+## Importação da amostra IBM
 
-```text
-nexuslens/
-│
-├── backend/
-│   ├── app/
-│   │   ├── services/
-│   │   │   ├── analise_grafo.py
-│   │   │   ├── grafo.py
-│   │   │   ├── ia.py
-│   │   │   └── score.py
-│   │   │
-│   │   ├── database.py
-│   │   ├── main.py
-│   │   ├── models.py
-│   │   ├── schemas.py
-│   │   └── __init__.py
-│   │
-│   ├── database/
-│   │   └── init.sql
-│   │
-│   ├── .env.example
-│   ├── Dockerfile
-│   ├── requirements.txt
-│   └── .gitignore
-│
-├── frontend/
-│   ├── public/
-│   │   ├── favicon.svg
-│   │   └── icons.svg
-│   │
-│   ├── src/
-│   │   ├── assets/
-│   │   │   ├── hero.png
-│   │   │   ├── react.svg
-│   │   │   └── vite.svg
-│   │   │
-│   │   ├── components/
-│   │   │   ├── AIInsights/
-│   │   │   │   ├── AIInsights.css
-│   │   │   │   └── AIInsights.jsx
-│   │   │   │
-│   │   │   ├── GraphView/
-│   │   │   │   ├── GraphView.css
-│   │   │   │   └── GraphView.jsx
-│   │   │   │
-│   │   │   ├── Header/
-│   │   │   │   ├── Header.css
-│   │   │   │   └── Header.jsx
-│   │   │   │
-│   │   │   ├── MetricsPanel/
-│   │   │   │   ├── MetricsPanel.css
-│   │   │   │   └── MetricsPanel.jsx
-│   │   │   │
-│   │   │   └── StatCard/
-│   │   │       ├── StatCard.css
-│   │   │       └── StatCard.jsx
-│   │   │
-│   │   ├── pages/
-│   │   │   └── Dashboard.jsx
-│   │   │
-│   │   ├── services/
-│   │   │   └── api.js
-│   │   │
-│   │   ├── styles/
-│   │   │   ├── dashboard.css
-│   │   │   └── global.css
-│   │   │
-│   │   ├── App.jsx
-│   │   └── main.jsx
-│   │
-│   ├── package.json
-│   ├── package-lock.json
-│   ├── vite.config.js
-│   ├── Dockerfile
-│   └── .gitignore
-│
-├── docker-compose.yml
-├── LICENSE
-└── README.md
-```
+A importação **não acontece automaticamente** em commits, PRs ou deploys. Consulte [docs/ibm-aml-quickstart.md](docs/ibm-aml-quickstart.md) e [docs/ibm-aml-validation.md](docs/ibm-aml-validation.md) para download verificado, dry-run, importação em banco de **desenvolvimento** e testes. Importar ou modificar o banco conectado à produção exige validação e aprovação específicas.
 
----
+## API
 
-# 📡 Endpoints
+Rotas IBM, consultadas pela interface 2.0 (prefixo /api apenas no proxy do frontend):
 
-| Método | Endpoint | Descrição |
-|----------|----------|------------|
-| GET | / | Status da API |
-| GET | /clientes | Lista de clientes |
-| GET | /transacoes | Lista de transações |
-| GET | /grafo | Geração da análise financeira |
+| Método | Rota da API | Finalidade |
+| --- | --- | --- |
+| GET | /datasets/ibm-aml/status | Estado da amostra importada |
+| GET | /datasets/ibm-aml/transacoes | Transações paginadas |
+| GET | /datasets/ibm-aml/grafo | Grafo e indicadores do recorte |
+| GET | /datasets/ibm-aml/alertas | Sinais de padrões de movimentação |
+| POST | /relatorio | Parecer Gemini a partir de métricas agregadas |
 
----
+As rotas anteriores /clientes, /transacoes e /grafo permanecem no backend por compatibilidade, **mas não são fontes da interface 2.0**. Veja também [docs/ibm-aml-api.md](docs/ibm-aml-api.md).
 
-# 🧠 Inteligência Artificial
+## Testes e limites de validação
 
-O NexusLens utiliza a API do **Google Gemini** para interpretar automaticamente os resultados obtidos pela análise da rede financeira.
+~~~bash
+# Frontend (dentro de frontend/)
+node --test tests/*.test.mjs
+npm run lint
+npm run build
+~~~
 
-A IA recebe um resumo contendo métricas da rede e gera um relatório em linguagem natural apresentando:
+Para os testes do backend e a integração opcional com PostgreSQL local de teste, siga [docs/ibm-aml-validation.md](docs/ibm-aml-validation.md). A execução dos testes automatizados não substitui a verificação visual em desktop/celular, nem confirma por si só a presença dos dados no Render/Neon.
 
-- Identificação do nível de risco;
-- Interpretação das conexões;
-- Possíveis padrões suspeitos;
-- Recomendações para o analista financeiro.
+## Próximas etapas
 
----
+Validar a importação real da amostra IBM em ambiente seguro; verificar APIs, Gemini e deploys; ampliar testes de acessibilidade e responsividade; e, em evolução futura, oferecer autenticação e persistência/auditoria de casos e relatórios no servidor.
 
-# 🌐 Teoria dos Grafos
+Acompanhe em [docs/roadmap/ROADMAP.md](docs/roadmap/ROADMAP.md).
 
-A rede financeira é representada utilizando grafos.
+## Autora
 
-Na modelagem:
+**Isabelle Ferreira Neri Feitoza** — Análise e Desenvolvimento de Sistemas, FIAP.
 
-- Nós representam clientes;
-- Arestas representam transações financeiras.
-
-A partir dessa estrutura são calculadas métricas como:
-
-- Influência na rede;
-- Quantidade de conexões;
-- Papel estrutural do cliente;
-- Score de risco.
-
----
-
-## 📊 Resultado
-
-A plataforma entrega ao analista:
-
-- ✅ Dashboard interativo
-- ✅ Visualização da rede financeira
-- ✅ Score de risco calculado automaticamente
-- ✅ Classificação do nível de risco
-- ✅ Métricas estruturais da rede
-- ✅ Recomendações inteligentes
-- ✅ Relatório gerado pela IA (Google Gemini)
-- ✅ Persistência dos dados em PostgreSQL
-
----
-
-# 🎯 Objetivo do projeto
-
-Desenvolver uma plataforma inteligente capaz de transformar dados de redes financeiras em informações estratégicas por meio da combinação entre Inteligência Artificial Generativa, Teoria dos Grafos e Engenharia de Software, auxiliando analistas na identificação de padrões de risco e apoiando a tomada de decisão.
-
----
-
-# 💡 Aprendizados
-
-- Desenvolvimento de APIs REST com FastAPI
-- Construção de interfaces com React
-- Integração entre Front-end e Back-end
-- Modelagem de banco de dados PostgreSQL
-- Aplicação de Teoria dos Grafos utilizando NetworkX
-- Integração com IA Generativa (Google Gemini)
-- Containerização com Docker
-- Deploy completo da aplicação utilizando Vercel (Frontend), Render (Back-end) e Neon (Banco de Dados PostgreSQL)
-
----
-
-# 🔮 Melhorias futuras
-
-- Histórico das análises realizadas
-- Exportação de relatórios em PDF
-- Sistema de autenticação de usuários
-- Atualização da rede em tempo real
-- Dashboard analítico avançado
-- Filtros inteligentes na rede financeira
-- Upload de arquivos CSV para análise personalizada
-  
----
-
-# 👨‍💻 Autora
-
-**Isabelle Ferreira Neri Feitoza**
-
-Estudante de Análise e Desenvolvimento de Sistemas — FIAP  
-
-- [LinkedIn](https://www.linkedin.com/in/isabelle-ferreira-8844593ab/)
-- [GitHub](https://github.com/isabelleferreiraa)
+[GitHub](https://github.com/isabelleferreiraa) · [LinkedIn](https://www.linkedin.com/in/isabelle-ferreira-8844593ab/)
